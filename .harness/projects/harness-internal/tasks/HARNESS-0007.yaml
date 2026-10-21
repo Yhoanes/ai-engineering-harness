@@ -1,0 +1,63 @@
+task_id: HARNESS-0007
+status: completed
+task_type: standard
+title: Portable Packaging and Advisor Experience
+description: >
+  Diseñar e implementar la experiencia portable del AI Engineering Harness.
+  Esto incluye un Advisor Experience layer para componer el estado del proyecto y orientar
+  al usuario en lenguaje natural, y un Distribution Builder para empaquetar el Harness
+  limpiamente (sin historiales internos ni caches) para su uso en nuevos entornos.
+project: _harness-internal
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-28T23:30:08-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-28T23:51:55-04:00'
+approval_history:
+  - action: approved
+    approved_by: Yhoanes
+    approved_at: '2026-08-28T23:30:08-04:00'
+    reason: Implement portable packaging and advisor according to specifications.
+acceptance_history:
+  - action: passed
+    accepted_by: Yhoanes
+    accepted_at: '2026-08-28T23:51:55-04:00'
+    reason: La implementacion de Portable Packaging and Advisor Experience queda formalmente aceptada.
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: f0dd9f96ca49114a4e16147ebad65498f0911362
+  working_tree_clean: true
+  captured_at: '2026-08-29T03:30:54+00:00'
+  preexisting_untracked: []
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      - projects/.harness-internal/tasks/HARNESS-0007.yaml
+      - projects/.harness-internal/evidence/HARNESS-0007/**
+      - engine/advisor/**
+      - engine/distribution/**
+      - docs/**
+      - install/**
+      - packaging/**
+      - VERSION
+      - README.md
+      - tests/test_advisor_service.py
+      - tests/test_distribution_builder.py
+      - tests/test_project_template.py
+evidence:
+  tests:
+    status: passed
+  code_review:
+    status: approved
+  security_review:
+    status: passed
+created_at: '2026-08-28T23:25:00-04:00'
+updated_at: '2026-08-28T23:25:00-04:00'

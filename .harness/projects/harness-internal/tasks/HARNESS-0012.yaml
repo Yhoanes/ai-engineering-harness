@@ -1,0 +1,45 @@
+task_id: HARNESS-0012
+title: Final Cleanup and Release Hygiene
+task_type: standard
+project: ai-engineering-harness
+created_at: '2026-08-29T08:50:07-04:00'
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-29T08:55:30-04:00'
+acceptance_status: passed
+description: "Auditar y limpiar de forma segura el repositorio de desarrollo del AI\
+  \ Engineering Harness antes del backup/export final.\nIdentificar artefactos, caches,\
+  \ entornos y directorios vac\xEDos, y generar un inventario para limpieza autorizada.\n"
+assigned_specialists:
+- harness-maintainer
+scope:
+  planned_paths:
+    modify:
+    - projects/.harness-internal/tasks/HARNESS-0012.yaml
+    - projects/.harness-internal/evidence/HARNESS-0012/**
+    - .gitignore
+evidence:
+  tests:
+    status: null
+    coverage_target: null
+    execution_results: null
+  code_review:
+    status: null
+    reviewer: null
+    comments: null
+  security_review:
+    status: null
+    reviewer: null
+    comments: null
+implementation_baseline:
+  git_head: 3c38212faf2932aa66c32081fb3aeea9b3dcffa6
+  working_tree_clean: true
+  preexisting_untracked: []
+accepted_by: Yhoanes
+accepted_at: '2026-08-29T09:08:45-04:00'
+acceptance_history:
+- action: passed
+  accepted_by: Yhoanes
+  accepted_at: '2026-08-29T09:08:45-04:00'
+  reason: Final cleanup of development repository accepted.

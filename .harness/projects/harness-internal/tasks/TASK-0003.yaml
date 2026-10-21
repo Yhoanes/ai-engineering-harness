@@ -1,0 +1,151 @@
+task_id: "TASK-0003"
+task_type: "standard"
+title: "Harden V5b Baseline Tracking for Pre-existing Untracked Files"
+description: |
+  Fixes V5b defect by tracking pre-existing untracked files in the implementation baseline
+  with their SHA-256 hashes, preventing false positives from files that existed before the task started.
+project: "_harness-internal"
+
+# ─── Status ───
+status: "completed"
+
+# ─── Approval (flat fields) ───
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-28T18:36:29-04:00"
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+
+# ─── Acceptance (flat fields) ───
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-28T18:46:09-04:00"
+
+# ─── Deviation ───
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+
+# ─── Implementation Baseline ───
+implementation_baseline:
+  git_head: "c9b9d87bac13accc0c214d69a3dc585ff3b1aa4f"
+  working_tree_clean: true
+  captured_at: "2026-08-28T22:37:54.886470+00:00"
+  preexisting_untracked: []
+
+# ─── Scope ───
+scope:
+  planned_paths:
+    modify:
+      - "core/schemas/task-contract.schema.yaml"
+      - "engine/validators/validate_allowed_paths_post.py"
+      - "tests/test_allowed_paths_post.py"
+      - "projects/.harness-internal/tasks/TASK-0003.yaml"
+      - "projects/.harness-internal/evidence/TASK-0003/**"
+    read:
+      - "core/**"
+      - "engine/**"
+      - "tests/**"
+      - "projects/.harness-internal/tasks/HARNESS-0002.yaml"
+      - "projects/.harness-internal/tasks/TASK-0002.yaml"
+      - "README.md"
+  allowed_actions:
+    terminal:
+      - "git"
+      - "pytest"
+      - "ruff"
+    web: []
+  forbidden_actions: []
+
+# ─── Assignment ───
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - "harness-maintainer"
+
+# ─── Evidence ───
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+
+# ─── Postcheck ───
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+
+# ─── Audit ───
+approval_history:
+  - action: "approved"
+    approved_by: "Yhoanes"
+    approved_at: "2026-08-28T18:36:29-04:00"
+    reason: "Approve hardening of V5b baseline tracking"
+acceptance_history:
+  - action: "passed"
+    accepted_by: "Yhoanes"
+    accepted_at: "2026-08-28T18:46:09-04:00"
+    reason: "Implementation of V5b hardening successfully validated and tested"
+
+# ─── Metadata ───
+created_at: "2026-08-28T18:31:35-04:00"
+updated_at: "2026-08-28T18:31:35-04:00"
+
+# ─── Acceptance Criteria ───
+acceptance_criteria:
+  - id: "AC-01"
+    description: "capture_baseline registra preexisting_untracked con path + sha256."
+  - id: "AC-02"
+    description: "Hash es SHA-256 hexadecimal lowercase de 64 chars."
+  - id: "AC-03"
+    description: "Nuevo untracked después del baseline -> DETECTED."
+  - id: "AC-04"
+    description: "Preexisting untracked con mismo hash -> IGNORED."
+  - id: "AC-05"
+    description: "Preexisting untracked con hash distinto -> DETECTED."
+  - id: "AC-06"
+    description: "Preexisting untracked eliminado -> DETECTED."
+  - id: "AC-07"
+    description: "Múltiples untracked preexistentes se comparan individualmente."
+  - id: "AC-08"
+    description: "Staged sigue detectándose."
+  - id: "AC-09"
+    description: "Unstaged tracked sigue detectándose."
+  - id: "AC-10"
+    description: "Committed desde baseline sigue detectándose."
+  - id: "AC-11"
+    description: "Nuevo archivo fuera de scope -> V5b FAIL."
+  - id: "AC-12"
+    description: "Preexisting fuera de scope sin cambios -> no falso positivo."
+  - id: "AC-13"
+    description: "Preexisting fuera de scope modificado -> V5b FAIL."
+  - id: "AC-14"
+    description: "Preexisting fuera de scope eliminado -> V5b FAIL."
+  - id: "AC-15"
+    description: "SHA-256 malformado en baseline -> FAIL/CANNOT_VALIDATE."
+  - id: "AC-16"
+    description: "Path baseline inválido/path traversal -> FAIL/CANNOT_VALIDATE."
+  - id: "AC-17"
+    description: "Baseline legacy sin snapshot + current untracked -> FAIL/CANNOT_VALIDATE."
+  - id: "AC-18"
+    description: "Baseline legacy sin snapshot + cero current untracked -> comportamiento compatible."
+  - id: "AC-19"
+    description: "Orden del snapshot es determinista por path."
+  - id: "AC-20"
+    description: "Tests existentes continúan pasando."

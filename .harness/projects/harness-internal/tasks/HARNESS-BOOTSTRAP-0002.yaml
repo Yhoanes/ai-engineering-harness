@@ -1,0 +1,88 @@
+task_id: "HARNESS-BOOTSTRAP-0002"
+task_type: "standard"
+title: "Materialize Task Artifacts in Sandbox"
+description: |
+  Fix the autonomous runner to explicitly materialize governed artifacts (Task Contract and Proposal) 
+  for the current task into the WorktreeSandbox, even if they are untracked in HEAD.
+
+  REQUIREMENTS:
+  1. Define a private method `_materialize_task_artifacts(self, sandbox_path: Path, request: AntigravityRequest)` in `AutonomousRunner`.
+  2. Validate `request.task_id` against `^[A-Z0-9_-]+$` and `request.project` against `^[a-zA-Z0-9_.-]+$` (and no `..`).
+  3. Resolve the authoritative project directory (checking `request.project` then `.harness-internal`).
+  4. If `tasks/<TASK_ID>.yaml` exists in the main tree, use `shutil.copy2` to copy it to the sandbox at the corresponding relative path.
+  5. If `proposals/<TASK_ID>.md` exists in the main tree, use `shutil.copy2` to copy it to the sandbox at the corresponding relative path.
+  6. If the proposal does NOT exist, DO NOTHING (preserve current behavior, do not fail).
+  7. DO NOT copy anything else (no other tasks, no other proposals, no specialists, no dirty tree).
+  8. Replace the inline task copying loop in `run()` (around line 123) with a call to this new method.
+
+  TESTING:
+  Update or add tests in `tests/test_autonomous_runner.py` for:
+  - Both task and proposal exist -> both copied.
+  - Task exists, proposal absent -> only task copied, no error.
+  - Other task/proposal -> not copied.
+  - Path traversal injection -> ValueError.
+  - Arbitrary untracked files (e.g. specialists) -> not copied.
+project: ".harness-internal"
+status: "completed"
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-30T21:48:54-04:00"
+approval_source: "Human Gate"
+approval_session_id: null
+approval_receipt: null
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-30T21:54:01-04:00"
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: null
+  working_tree_clean: null
+  captured_at: null
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+      - "adapters/antigravity/autonomous_runner.py"
+      - "tests/test_autonomous_runner.py"
+    read:
+      - "engine/runner/sandbox.py"
+      - "engine/context/loader.py"
+      - "adapters/antigravity/models.py"
+  allowed_actions:
+    terminal:
+      - "pytest"
+      - "ruff"
+    web: []
+  forbidden_actions:
+    - "pip install"
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - "harness-maintainer"
+evidence:
+  tests:
+    status: null
+  code_review:
+    status: null
+  security_review:
+    status: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history: []
+acceptance_history: []
+created_at: "2026-08-30T21:50:00-04:00"
+updated_at: "2026-08-30T21:50:00-04:00"
+acceptance_criteria:
+  - id: "AC-01"
+    description: "El runner materializa exitosamente `<TASK_ID>.yaml` y `<TASK_ID>.md` (solo del task_id en curso) si existen en el main tree."
+  - id: "AC-02"
+    description: "Si la propuesta no existe, el runner no falla, replicando el comportamiento anterior."
+  - id: "AC-03"
+    description: "Ningún otro task, proposal, especialista ni dirty tree se filtra al sandbox."
+  - id: "AC-04"
+    description: "El método rechaza paths inyectados y está contenido aisladamente en `_materialize_task_artifacts`."

@@ -1,0 +1,9 @@
+{"step": 1, "status": "planned", "workflow": "approve-task", "specialist": "orchestrator", "timestamp": "2026-08-31T02:21:44.161406+00:00"}
+{"step": 1, "status": "paused", "workflow": "approve-task", "specialist": "orchestrator", "reason": "Human Gate: Task is awaiting_approval.", "timestamp": "2026-08-31T02:21:44.165155+00:00"}
+{"step": 1, "status": "planned", "workflow": "implement-task", "specialist": "harness-maintainer", "timestamp": "2026-08-31T02:22:00.257414+00:00"}
+{"step": 1, "status": "sandbox_created", "workflow": "implement-task", "specialist": "harness-maintainer", "timestamp": "2026-08-31T02:22:00.445451+00:00"}
+{"step": 1, "status": "dispatched", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T02:22:00.446183+00:00"}
+{"step": 1, "status": "executed", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T02:23:46.427421+00:00"}
+{"step": 1, "status": "validated", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T02:23:46.492965+00:00"}
+{"step": 1, "status": "applied", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T02:23:46.494470+00:00"}
+{"step": 1, "status": "paused", "workflow": "implement-task", "specialist": "harness-maintainer", "reason": "Implementation applied. Awaiting governed review.", "timestamp": "2026-08-31T02:23:46.616149+00:00"}

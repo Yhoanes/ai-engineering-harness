@@ -1,0 +1,130 @@
+task_id: "TASK-0002"
+task_type: "standard"
+title: "Extend Workflow Schema for Governed Workflows"
+description: |
+  Extends core/schemas/workflow.schema.yaml to strictly support the universal workflow architecture required by HARNESS-0002.
+project: "_harness-internal"
+
+# ─── Status ───
+status: "completed_with_deviation"
+
+# ─── Approval (flat fields) ───
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-28T18:17:17-04:00"
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+
+# ─── Blocks ───
+blocks:
+  - "V5b cannot distinguish pre-existing untracked files from files created after implementation baseline. Affected file: projects/.harness-internal/tasks/HARNESS-0002.yaml. Classification: engine_defect. Blocked at: 2026-08-28T18:24:45-04:00"
+
+# ─── Acceptance (flat fields) ───
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-28T18:58:38-04:00"
+
+# ─── Deviation ───
+deviation:
+  documented: true
+  description: "V5b could not distinguish a pre-existing untracked HARNESS-0002 planning contract during the original implementation window. The defect was corrected by TASK-0003. TASK-0002 implementation was preserved in isolated checkpoint d91480f and its historical diff was verified against the authorized scope. Classification: engine_validation_defect. Reference: TASK-0003, commit 00337b8, checkpoint d91480f"
+  impact: "No unauthorized implementation changes; original deterministic V5b closure unavailable for the historical execution window; historical Git checkpoint provides scope reconciliation; V5b engine defect is now fixed by TASK-0003."
+  accepted_by: "Yhoanes"
+  accepted_at: "2026-08-28T18:58:38-04:00"
+
+# ─── Implementation Baseline ───
+implementation_baseline:
+  git_head: "7d33268"
+  working_tree_clean: true
+  captured_at: "2026-08-28T18:18:22-04:00"
+
+# ─── Scope ───
+scope:
+  planned_paths:
+    modify:
+      - "core/schemas/workflow.schema.yaml"
+      - "tests/test_schemas.py"
+      - "projects/.harness-internal/tasks/TASK-0002.yaml"
+      - "projects/.harness-internal/evidence/TASK-0002/EVIDENCE.md"
+    read:
+      - "core/**"
+      - "engine/**"
+      - "tests/**"
+      - "projects/.harness-internal/tasks/HARNESS-0002.yaml"
+      - "README.md"
+  allowed_actions:
+    terminal:
+      - "git"
+      - "pytest"
+      - "ruff"
+    web: []
+  forbidden_actions: []
+
+# ─── Assignment ───
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - "harness-maintainer"
+
+# ─── Evidence ───
+evidence:
+  tests:
+    status: "passed"
+    skip_reason: null
+    run_at: "2026-08-28T18:20:51-04:00"
+    report_path: "projects/.harness-internal/evidence/TASK-0002/EVIDENCE.md"
+  code_review:
+    status: "approved"
+    skip_reason: null
+    reviewed_by: "code-reviewer"
+    reviewed_at: "2026-08-28T18:21:47-04:00"
+    report_path: "projects/.harness-internal/evidence/TASK-0002/EVIDENCE.md"
+  security_review:
+    status: "passed"
+    skip_reason: null
+    reviewed_by: "security-engineer"
+    reviewed_at: "2026-08-28T18:21:47-04:00"
+    report_path: "projects/.harness-internal/evidence/TASK-0002/EVIDENCE.md"
+
+# ─── Postcheck ───
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+
+# ─── Audit ───
+approval_history:
+  - action: "approved"
+    approved_by: "Yhoanes"
+    approved_at: "2026-08-28T18:17:17-04:00"
+    reason: "Approve workflow schema extension task"
+acceptance_history:
+  - action: "passed"
+    accepted_by: "Yhoanes"
+    accepted_at: "2026-08-28T18:58:38-04:00"
+    reason: "Historical scope reconciliation verified. Deviation formally accepted."
+
+# ─── Metadata ───
+created_at: "2026-08-28T18:13:06-04:00"
+updated_at: "2026-08-28T18:13:06-04:00"
+
+# ─── Acceptance Criteria ───
+acceptance_criteria:
+  - id: "AC-01"
+    description: "El schema exige id, display_name, purpose, allowed_specialists, entry_conditions, steps, required_validators, evidence_requirements, exit_conditions, next_workflows, forbidden_actions."
+  - id: "AC-02"
+    description: "El schema define additionalProperties: false a nivel raíz del workflow."
+  - id: "AC-03"
+    description: "Los arrays allowed_specialists, required_validators y forbidden_actions exigen uniqueItems: true."
+  - id: "AC-04"
+    description: "La propiedad 'name' ya no existe ni es requerida; se reemplaza limpia por display_name."
+  - id: "AC-05"
+    description: "La propiedad preconditions se reemplaza limpia por entry_conditions."
+  - id: "AC-06"
+    description: "La propiedad postconditions se reemplaza limpia por exit_conditions."
+  - id: "AC-07"
+    description: "tests/test_schemas.py valida esquemas completos y rechaza exhaustivamente la ausencia de cada campo, tipos inválidos, duplicados o IDs mal formados."
+  - id: "AC-08"
+    description: "No se rompen los consumers reales (confirmado: 0 consumers reales encontrados)."
+  - id: "AC-09"
+    description: "Los reviews de code y security se realizan independientemente (read-only)."

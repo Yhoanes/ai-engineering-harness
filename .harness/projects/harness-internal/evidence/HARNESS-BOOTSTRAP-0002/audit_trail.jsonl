@@ -1,0 +1,7 @@
+{"step": 1, "status": "planned", "workflow": "implement-task", "specialist": "harness-maintainer", "timestamp": "2026-08-31T01:49:37.563245+00:00"}
+{"step": 1, "status": "sandbox_created", "workflow": "implement-task", "specialist": "harness-maintainer", "timestamp": "2026-08-31T01:49:37.752697+00:00"}
+{"step": 1, "status": "dispatched", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T01:49:37.753070+00:00"}
+{"step": 1, "status": "executed", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T01:52:11.555299+00:00"}
+{"step": 1, "status": "validated", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T01:52:11.593173+00:00"}
+{"step": 1, "status": "applied", "workflow": "implement-task", "specialist": "harness-maintainer", "host_executor": "agy_cli", "timestamp": "2026-08-31T01:52:11.594700+00:00"}
+{"step": 1, "status": "paused", "workflow": "implement-task", "specialist": "harness-maintainer", "reason": "Implementation applied. Awaiting governed review.", "timestamp": "2026-08-31T01:52:11.703402+00:00"}

@@ -1,0 +1,38 @@
+project: harness-internal
+task_id: HARNESS-0042
+task_type: standard
+title: "Antigravity CLI Installer Detection"
+description: >
+  Mejora de UX en setup.ps1 para detectar presencia de agy sin fallar 
+  la instalacion ni forzar auto-install.
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T23:52:33Z"
+created_at: "2026-08-31T23:52:33Z"
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T23:52:33Z"
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+        - install/setup.ps1
+        - tests/test_installer_launcher.py
+    read:
+      mode: unrestricted
+  terminal_authority:
+    mode: unrestricted
+  network_allowed: false
+evidence:
+  implementation:
+    applied_changes:
+      modify:
+        - install/setup.ps1
+        - tests/test_installer_launcher.py
+      read: []
+    terminal_authority: pending

@@ -1,0 +1,131 @@
+task_id: HARNESS-0017
+task_type: standard
+title: Add a One-Click Windows Installer Launcher
+description: |
+  Add a root-level INSTALAR.cmd launcher that lets a Windows user install or
+  verify the Harness by double-clicking, while preserving the existing secure
+  PowerShell bootstrap and its exit status. Release the change as v1.1.2.
+project: _harness-internal
+supersedes: null
+superseded_by: null
+depends_on: []
+blocks: []
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-30T11:18:00-04:00'
+approval_source: user_conversation
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-30T11:29:00-04:00'
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: 92e8077ceab2cce556bae16323ef799f051d0535
+  working_tree_clean: true
+  captured_at: '2026-08-30T11:18:00-04:00'
+scope:
+  planned_paths:
+    modify:
+      - INSTALAR.cmd
+      - README.md
+      - docs/installation.md
+      - install/README.md
+      - packaging/distribution-manifest.yaml
+      - engine/distribution/builder.py
+      - tests/test_distribution_builder.py
+      - tests/test_installer_launcher.py
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.1.2.md
+      - projects/.harness-internal/tasks/HARNESS-0017.yaml
+      - projects/.harness-internal/evidence/HARNESS-0017/**
+    read:
+      - install/setup.ps1
+      - docs/advisor-guide.md
+      - adapters/antigravity/**
+      - core/schemas/**
+      - tests/**
+  allowed_actions:
+    terminal:
+      - git
+      - pytest
+      - ruff
+      - cmd
+      - powershell
+  forbidden_actions:
+    - Modify or delete user projects.
+    - Install Python, Git, or system-wide dependencies.
+    - Claim that the launcher provides a conversational Antigravity UI.
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+  - qa-engineer
+evidence:
+  tests:
+    status: passed
+    skip_reason: null
+    run_at: '2026-08-30T11:27:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0017/EVIDENCE.md
+  code_review:
+    status: approved
+    skip_reason: null
+    reviewed_by: Codex
+    reviewed_at: '2026-08-30T11:29:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0017/EVIDENCE.md
+  security_review:
+    status: passed
+    skip_reason: null
+    reviewed_by: Codex
+    reviewed_at: '2026-08-30T11:29:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0017/EVIDENCE.md
+postcheck:
+  actual_paths_modified:
+    - INSTALAR.cmd
+    - README.md
+    - VERSION
+    - docs/installation.md
+    - docs/releases/v1.1.2.md
+    - engine/distribution/builder.py
+    - install/README.md
+    - packaging/distribution-manifest.yaml
+    - projects/.harness-internal/evidence/HARNESS-0017/EVIDENCE.md
+    - projects/.harness-internal/tasks/HARNESS-0017.yaml
+    - pyproject.toml
+    - tests/test_distribution_builder.py
+    - tests/test_installer_launcher.py
+  postcheck_status: passed
+  postcheck_at: '2026-08-30T11:29:00-04:00'
+approval_history:
+  - action: approved
+    approved_by: Yhoanes
+    approved_at: '2026-08-30T11:18:00-04:00'
+    reason: User requested the simple installer as the final usability improvement.
+acceptance_history:
+  - action: passed
+    accepted_by: Yhoanes
+    accepted_at: '2026-08-30T11:29:00-04:00'
+    reason: The one-click installer and all release validations passed.
+created_at: '2026-08-30T11:18:00-04:00'
+updated_at: '2026-08-30T11:29:00-04:00'
+acceptance_criteria:
+  - id: AC-01
+    description: A Windows user can start installation by double-clicking INSTALAR.cmd.
+  - id: AC-02
+    description: The launcher resolves setup.ps1 relative to its own location and works in paths with spaces.
+  - id: AC-03
+    description: The launcher preserves setup.ps1's exit code and keeps the result visible.
+  - id: AC-04
+    description: Portable distributions include and require INSTALAR.cmd.
+  - id: AC-05
+    description: Documentation separates normal installation from developer certification tests.
+  - id: AC-06
+    description: VERSION and package metadata agree on 1.1.2.
+  - id: AC-07
+    description: Existing projects and the v1.1.1 release remain unchanged.

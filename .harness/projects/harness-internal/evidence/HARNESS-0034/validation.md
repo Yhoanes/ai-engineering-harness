@@ -1,0 +1,35 @@
+﻿# HARNESS-0034 Phase 2 Evidence
+
+- baseline v1.12.0;
+- problema histórico: projects/.harness-internal/** persistía en authority ceiling como deuda de migración antigua;
+- old physical path todavía existe con scratch;
+- old path NO es lifecycle location actual;
+- lifecycle actual: .harness/projects/harness-internal/**;
+- bootstrap circular detectado;
+- Phase 1 limitada a Matrix + regression test;
+- replacement realizado en autoridad histórica y execution.modify_paths;
+- no authority override;
+- Phase-2 paths pasaron a TRUE después de Matrix correction;
+- scope amendment ratificado por Yhoanes;
+- todos los demás modify patterns intactos;
+- read/terminal/network sin cambios;
+- otros specialists sin cambios;
+- HARNESS-0030 ahora 10/10 modify TRUE;
+- HARNESS-0030 read/terminal/network TRUE;
+- HARNESS-0030 NO implementado todavía;
+- HARNESS-0022 congelado.
+
+- Phase 1;
+- bootstrap;
+- Phase 2;
+- scope amendment;
+- timestamp corregido;
+- 640 passed / 4 skipped;
+- Ruff PASS;
+- diff check PASS;
+- diagnostics READY;
+- Task validator PASS;
+- historical == execution invariant PASS;
+- HARNESS-0030 10/10 TRUE;
+- no out-of-scope changes;
+- Human Acceptance by Yhoanes.

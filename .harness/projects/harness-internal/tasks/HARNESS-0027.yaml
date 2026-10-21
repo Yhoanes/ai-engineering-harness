@@ -1,0 +1,21 @@
+task_id: "HARNESS-0027"
+title: "Provider-Neutral Execution Contracts"
+project: "harness-internal"
+status: "completed"
+assigned_specialists:
+  - "harness-maintainer"
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-31T00:31:00Z"
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-31T00:50:00Z"
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    - engine/execution/__init__.py
+    - engine/execution/models.py
+    - engine/execution/provider.py
+    - tests/test_execution_contracts.py

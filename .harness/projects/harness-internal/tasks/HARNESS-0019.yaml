@@ -1,0 +1,71 @@
+task_id: HARNESS-0019
+task_type: standard
+title: Dynamic Selection and Delegation of Specialists
+description: |
+  Implement deterministic specialist selection using canonical sources (core/specialists, core/workflows, core/authority).
+  Remove hardcoded specialist assignments like backend-engineer.
+  Preserve already approved assignments without automatic replacement.
+  Safely escalate to human approval on ties, low confidence, or missing specialists.
+  Validate existence and authorization of specialists before assignment.
+  Ensure /new-project remains conversational and read-only until human approval.
+  Update tests, diagnostics, and documentation.
+project: _harness-internal
+supersedes: null
+superseded_by: null
+depends_on: []
+blocks: []
+status: completed
+approval_status: approved
+approved_by: Human
+approved_at: '2026-08-30T13:42:09-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-30T13:58:39-04:00'
+acceptance_history:
+  - status: passed
+    timestamp: '2026-08-30T13:42:09-04:00'
+    validator: Human
+    reason: "Final implementation validated and approved. Deviation: completed without explicit specialist assignment (human executed directly)."
+created_at: '2026-08-30T13:08:08-04:00'
+updated_at: '2026-08-30T13:42:09-04:00'
+implementation_baseline:
+  git_head: 09a4828811c9ed4217455a881b4e9c70a16e182e
+  working_tree_clean: true
+scope:
+  planned_paths:
+    modify:
+      - engine/router/router.py
+      - engine/router/models.py
+      - engine/router/specialist_selector.py
+      - engine/orchestrator/orchestrator.py
+      - engine/orchestrator/models.py
+      - tests/**
+      - engine/diagnostics/**
+      - docs/**
+      - VERSION
+      - pyproject.toml
+    read:
+      - adapters/antigravity/**
+      - core/authority/authority-matrix.yaml
+      - core/specialists/**
+      - core/workflows/**
+      - engine/distribution/**
+assigned_workflow: implement-task
+assigned_specialists: []
+acceptance_criteria:
+  - id: AC-01
+    description: Selection uses canonical sources (core/specialists, core/workflows, authority-matrix) and does not create non-existent names.
+  - id: AC-02
+    description: An already approved assignment in a Task Contract is never automatically replaced.
+  - id: AC-03
+    description: No arbitrary specialist choice is made on ties or low confidence; must result in safe human escalation.
+  - id: AC-04
+    description: A non-existent specialist produces safe human escalation.
+  - id: AC-05
+    description: Selection is perfectly reproducible (same input and same catalog produce the same output).
+  - id: AC-06
+    description: Tests verify correct delegation for at least backend, frontend, database, security, documentation, and release profiles.
+  - id: AC-07
+    description: The /new-project command continues to be conversational and read-only until explicit human approval.
+  - id: AC-08
+    description: Validation proves all selectable specialists exist in core/specialists/ and are authorized for the workflow.

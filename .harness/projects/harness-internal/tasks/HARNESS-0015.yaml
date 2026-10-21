@@ -1,0 +1,33 @@
+task_id: HARNESS-0015
+title: Dynamic Export Tag Baseline
+task_type: standard
+project: _harness-internal
+status: completed
+approval_status: approved
+acceptance_status: passed
+created_at: '2026-08-29T10:28:19-04:00'
+assigned_specialists:
+- harness-maintainer
+scope:
+  planned_paths:
+    modify:
+    - engine/export/__main__.py
+    - engine/export/manifest.py
+    - tests/test_export_builder.py
+    - projects/.harness-internal/tasks/HARNESS-0015.yaml
+    - projects/.harness-internal/evidence/HARNESS-0015/**
+evidence:
+  required_checks:
+  - dynamic_tag_baseline
+  notes: Fix hardcoded v1.0.0 in manifest
+approved_by: Yhoanes
+approved_at: '2026-08-29T10:31:27-04:00'
+implementation_baseline:
+  git_head: 252b3f5b33e12620dfd3836f1a657b7ccbf062ed
+  working_tree_clean: false
+  captured_at: '2026-08-29T14:31:49.364583+00:00'
+  preexisting_untracked:
+  - path: projects/.harness-internal/tasks/HARNESS-0014.yaml
+    sha256: 98b200cb323d25f7b1f0862f20ec45da1ee716c364e40e641152af5b609d3421
+accepted_by: Yhoanes
+accepted_at: '2026-08-29T10:39:04-04:00'

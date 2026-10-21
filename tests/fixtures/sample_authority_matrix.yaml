@@ -1,0 +1,135 @@
+specialists:
+  backend-engineer:
+    read: { code: true, docs: true, tasks: { own: true } }
+    modify: { scope: ["projects/analista/src/**"] }
+    terminal: { allowed: true, restricted_to: [build, test, lint] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy
+      - create_task
+      - modify_authority
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "projects/analista/src/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  orchestrator:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["tasks/"] }
+    terminal: { allowed: false }
+    web: { allowed: false }
+    task_management:
+      propose_task: false
+      create_task: true
+      review: { read_only: true }
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - modify_authority
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "tasks/"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  documentation-engineer:
+    read: { code: true, docs: true, tasks: true }
+    modify: { scope: ["projects/analista/docs/**"] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "projects/analista/docs/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  code-reviewer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: [] }
+    terminal: { allowed: false }
+    web: { allowed: false }
+    task_management:
+      propose_task: false
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_any_file
+      - execute_terminal
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  qa-engineer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["projects/analista/tests/**"] }
+    terminal: { allowed: true, restricted_to: [test_runners] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: { evidence_only: true }
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_src
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "projects/analista/tests/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false

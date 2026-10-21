@@ -1,0 +1,57 @@
+task_id: HARNESS-0006
+status: completed
+task_type: standard
+title: Project Lifecycle and Templates for AI Engineering Harness
+description: >
+  Diseñar e implementar el lifecycle universal de proyectos gobernados por el AI Engineering Harness.
+  Esto incluye inicialización nativa de proyectos, plantillas canónicas, separación de source/ vs governance,
+  y soporte para Project Manager Runtime stack-agnostic.
+project: _harness-internal
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-28T23:07:29-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-28T23:14:28-04:00'
+approval_history:
+  - action: approved
+    approved_by: Yhoanes
+    approved_at: '2026-08-28T23:07:29-04:00'
+    reason: Implement Project Lifecycle and Templates according to specifications.
+acceptance_history:
+  - action: passed
+    accepted_by: Yhoanes
+    accepted_at: '2026-08-28T23:14:28-04:00'
+    reason: Implementation accepted by user.
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: 227e203f737b38d1f9e4bdca870264905762dd29
+  working_tree_clean: true
+  captured_at: '2026-08-29T03:08:48+00:00'
+  preexisting_untracked: []
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      - projects/.harness-internal/tasks/HARNESS-0006.yaml
+      - projects/.harness-internal/evidence/HARNESS-0006/**
+      - engine/projects/**
+      - templates/project/**
+      - tests/test_project_manager.py
+      - tests/test_project_template.py
+      - tests/fixtures/projects/**
+evidence:
+  tests:
+    status: passed
+  code_review:
+    status: approved
+  security_review:
+    status: passed
+created_at: '2026-08-28T23:01:00-04:00'
+updated_at: '2026-08-28T23:01:00-04:00'

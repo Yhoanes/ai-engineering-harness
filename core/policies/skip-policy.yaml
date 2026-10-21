@@ -1,0 +1,31 @@
+# Skip Policy — defines when evidence gates may be skipped
+
+skip_rules:
+  tests:
+    skippable_when:
+      - task_type: light
+        condition: "Change with no functional impact (docs, typos, comments)"
+      - task_type: standard
+        condition: "NEVER — tests are mandatory for standard tasks"
+    requires: skip_reason
+
+  code_review:
+    skippable_when:
+      - task_type: light
+        condition: "Single-line change, low risk, no logic"
+      - task_type: standard
+        condition: "NEVER — code review is mandatory for standard tasks"
+    requires: skip_reason
+
+  security_review:
+    skippable_when:
+      - task_type: light
+        condition: "No impact on authentication, authorization, or data"
+      - task_type: standard
+        condition: "Risk classified as low by Router"
+    requires: skip_reason
+
+validation:
+  - "Any skip_reason empty with status=skipped is invalid"
+  - "validate_evidence checks skip_reason against skip_rules"
+  - "Skip is only allowed if the skip_rules condition applies"

@@ -1,0 +1,39 @@
+id: implement-task
+display_name: Implement Task Workflow
+description: Workflow for implement-task.
+purpose: Exige approved, captura baseline, in_progress, respeta scope, ejecuta V5b,
+  produce evidencia.
+allowed_specialists:
+- backend-engineer
+- frontend-engineer
+- database-engineer
+- data-ai-engineer
+- integration-engineer
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: implement
+  description: Code implementation.
+  actor: system
+  action: implement
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: test-task
+  condition_summary: Code implemented
+forbidden_actions:
+- scope-expansion

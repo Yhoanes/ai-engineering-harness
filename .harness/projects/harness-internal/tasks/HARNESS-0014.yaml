@@ -1,0 +1,46 @@
+task_id: HARNESS-0014
+title: Final Certification and Version Alignment v1.1.0
+task_type: standard
+project: _harness-internal
+status: completed
+approval_status: approved
+acceptance_status: passed
+created_at: '2026-08-29T10:25:20-04:00'
+assigned_specialists:
+- harness-maintainer
+scope:
+  planned_paths:
+    modify:
+    - VERSION
+    - pyproject.toml
+    - tests/test_version_consistency.py
+    - projects/.harness-internal/tasks/HARNESS-0014.yaml
+    - projects/.harness-internal/evidence/HARNESS-0014/**
+    - docs/releases/v1.1.0.md
+evidence:
+  required_checks:
+  - version_alignment
+  notes: 'previous_blocker: HARDCODED_EXPORT_RELEASE_TAG
+
+    blocker_resolution_task: HARNESS-0015
+
+    blocker_resolution_commit: 6a70258
+
+    blocker_resolved: true
+
+    FINAL_PLANNING_READINESS: READY_FOR_APPROVAL
+
+    '
+approved_by: Yhoanes
+approved_at: '2026-08-29T10:44:23-04:00'
+implementation_baseline:
+  git_head: f979f8a05041ebfcb943246dbefb83477e5c0e96
+  working_tree_clean: true
+  captured_at: '2026-08-29T14:44:42.041685+00:00'
+  preexisting_untracked: []
+scope_amendments:
+- added_paths:
+  - docs/releases/v1.1.0.md
+  reason: Included release notes requested in certification instructions
+accepted_by: Yhoanes
+accepted_at: '2026-08-29T10:56:19-04:00'

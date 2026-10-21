@@ -1,0 +1,50 @@
+task_id: HARNESS-0005
+status: completed
+task_type: standard
+title: Cleanup and Repository Hygiene for AI Engineering Harness
+description: Auditar y preparar el repositorio para distribución, eliminando residuos y definiendo políticas de limpieza.
+project: _harness-internal
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-28T22:48:29-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-28T22:55:13-04:00'
+approval_history:
+  - action: approved
+    approved_by: Yhoanes
+    approved_at: '2026-08-28T22:48:29-04:00'
+    reason: Proceed with controlled repository cleanup and policy definition.
+acceptance_history:
+  - action: passed
+    accepted_by: Yhoanes
+    accepted_at: '2026-08-28T22:55:13-04:00'
+    reason: Cleanup implemented and policy defined correctly.
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: '078d8a215bdf3a606813f76bbe4176ad4b1042c1'
+  working_tree_clean: true
+  captured_at: '2026-08-29T02:49:21.787307+00:00'
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+      - projects/.harness-internal/tasks/HARNESS-0005.yaml
+      - projects/.harness-internal/evidence/HARNESS-0005/**
+      - core/policies/repository-hygiene.yaml
+assigned_specialists:
+  - harness-maintainer
+evidence:
+  tests:
+    status: passed
+  code_review:
+    status: approved
+  security_review:
+    status: passed
+created_at: '2026-08-28T22:15:00-04:00'
+updated_at: '2026-08-28T22:15:00-04:00'

@@ -1,0 +1,54 @@
+task_id: HARNESS-0032
+task_type: standard
+title: Authority Matrix Explicit Governance
+description: Extender la Authority Matrix para representar y conceder de forma explicita
+  scopes de autoridad (DENY_ALL, ALLOW_LIST, UNRESTRICTED) alineados con AccessMode.
+project: harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T09:40:40Z'
+acceptance_status: passed
+scope:
+  planned_paths:
+    modify:
+    - core/authority/authority-matrix.yaml
+    - core/schemas/authority-matrix.schema.yaml
+    - engine/governance/authority.py
+    - engine/validators/validate_authority.py
+    - engine/validators/validate_allowed_paths_pre.py
+    - tests/fixtures/sample_authority_matrix.yaml
+    - tests/test_authority.py
+    - tests/test_allowed_paths_pre.py
+    - tests/test_governance_authority.py
+    - .harness/projects/harness-internal/tasks/HARNESS-0032.yaml
+    - .harness/projects/harness-internal/evidence/HARNESS-0032/validation.md
+    - VERSION
+    - pyproject.toml
+    - docs/releases/v1.11.0.md
+    read:
+    - engine/router/specialist_selector.py
+    - engine/validators/scope.py
+    - engine/execution/models.py
+    - core/authority/authority-matrix.yaml
+    - tests/test_specialists.py
+  allowed_actions:
+    terminal:
+    - pytest
+    - ruff
+    - python
+    - git diff
+    - git status
+    - diagnostics
+    web: []
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T13:57:11Z'
+acceptance_history:
+- status: passed
+  by: Yhoanes
+  at: '2026-08-31T13:57:11Z'
+  reason: Human validation passed for Authority Matrix Explicit Governance

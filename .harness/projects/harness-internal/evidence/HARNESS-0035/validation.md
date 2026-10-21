@@ -1,0 +1,24 @@
+﻿# HARNESS-0035 Provider E2E Validation
+
+- baseline commit: b3cc6694a6d95848a0cc0d50ce8e7e22b63cac73
+- pre-execution canary content: provider-e2e-baseline
+- pre-execution SHA-256: 3A70B82D30BC6DA80B97C1F0FE99C8A46DD38ECA6A1483F339BB7897EF2A32D1
+- exact CLI command: .venv\Scripts\python.exe -m engine.runner --project harness-internal --task-id HARNESS-0035 --intent "Cambiar exactamente el contenido de tests/fixtures/provider_e2e_canary.txt de 'provider-e2e-baseline' a 'provider-e2e-completed' sin modificar ningún otro archivo." --execution-mode provider
+- UTC start/end: 2026-08-31T19:04:03Z
+- CLI exit code: 1
+- provider_id: NOT REACHED
+- execution_id: NOT REACHED
+- ExecutionStatus: NOT REACHED (Exception raised prior to ExecutionRequest creation)
+- reported_changed_files: []
+- diagnostics: TypeError: AntigravityExecutionProvider.__init__() takes exactly one argument (the instance to initialize). Occurred in engine/runner/__main__.py at instantiation.
+- WorktreeSandbox evidence: NONE
+- apply_to_main evidence: NONE
+- post-execution canary content: provider-e2e-baseline
+- post-execution SHA-256: 3A70B82D30BC6DA80B97C1F0FE99C8A46DD38ECA6A1483F339BB7897EF2A32D1
+- complete git diff: [Empty]
+- all changed source paths: NONE
+- no-fallback evidence: Verified; the runner threw an exception and exited without invoking legacy fallback.
+- network semantics: Task workload network requirement: NO. Provider/runtime transport network: MAY/DOES use network. network_allowed=True authority granted.
+- native_isolation false
+- physical read isolation NOT PROVEN
+- result FAIL

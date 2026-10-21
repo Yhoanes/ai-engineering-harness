@@ -1,0 +1,94 @@
+task_id: HARNESS-0031
+task_type: standard
+title: "Extensi\xF3n de Governance Schema para AccessMode expl\xEDcito"
+description: "Ampliar Task Contract JSON schema con oneOf (variantes discriminadas\
+  \ const) para soportar {mode, values} expl\xEDcitos en read, modify, y terminal\
+  \ scopes (DENY_ALL, ALLOW_LIST, UNRESTRICTED) garantizando safety."
+project: harness-internal
+status: completed_with_deviation
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T08:02:00Z'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed_with_deviation
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T12:35:56Z'
+deviation:
+  documented: true
+  reason: "Global Ruff contin\xFAa EXIT 1 debido a errores PREEXISTENTES del baseline\
+    \ v1.9.0 en tests/test_antigravity_execution_provider.py fuera del scope."
+  authorized_by: Yhoanes
+  mitigation_plan: Corregir el baseline Ruff en tarea separada futura, fuera de HARNESS-0031.
+implementation_baseline:
+  git_head: null
+  working_tree_clean: null
+  captured_at: null
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+    - core/schemas/task-contract.schema.yaml
+    - core/schemas/task-contract-light.schema.yaml
+    - engine/validators/scope.py
+    - engine/validators/validate_allowed_paths_pre.py
+    - engine/validators/validate_authority.py
+    - adapters/antigravity/autonomous_runner.py
+    - tests/test_validators_scope.py
+    - tests/test_allowed_paths_pre.py
+    - tests/test_authority.py
+    - tests/test_autonomous_runner.py
+    - tests/test_task_contract.py
+    - .harness/projects/harness-internal/tasks/HARNESS-0031.yaml
+    - .harness/projects/harness-internal/evidence/HARNESS-0031/validation.md
+    read:
+    - core/schemas/task-contract.schema.yaml
+    - core/schemas/task-contract-light.schema.yaml
+    - engine/execution/models.py
+    - engine/validators/validate_allowed_paths_pre.py
+    - engine/validators/validate_authority.py
+    - adapters/antigravity/autonomous_runner.py
+    - tests/test_allowed_paths_pre.py
+    - tests/test_authority.py
+    - tests/test_autonomous_runner.py
+    - tests/test_task_contract.py
+  allowed_actions:
+    terminal:
+    - pytest
+    - ruff
+    - git diff
+    - git status
+    - python
+    web: []
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history: []
+acceptance_history: []
+created_at: '2026-08-31T07:56:00Z'
+updated_at: '2026-08-31T07:56:00Z'
+acceptance_criteria: []

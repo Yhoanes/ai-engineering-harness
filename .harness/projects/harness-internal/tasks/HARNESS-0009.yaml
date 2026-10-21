@@ -1,0 +1,60 @@
+task_id: HARNESS-0009
+status: completed
+task_type: standard
+title: Certification Quality Cleanup
+description: 'Eliminar exclusivamente la deuda tecnica de lint/format detectada durante
+  HARNESS-0008, sin alterar comportamiento funcional, arquitectura, gobernanza ni
+  contenido del paquete portable.
+
+  '
+project: _harness-internal
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-29T00:15:04-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-29T00:25:09-04:00'
+approval_history:
+- action: approved
+  approved_by: Yhoanes
+  approved_at: '2026-08-29T00:15:04-04:00'
+  reason: Implementar remediacion de calidad para certificacion
+acceptance_history:
+- action: passed
+  accepted_by: Yhoanes
+  accepted_at: '2026-08-29T00:25:09-04:00'
+  reason: Calidad remediada y tests en verde
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: f8d81d0cc8d1672c44a54d6313a10fce85505827
+  working_tree_clean: true
+  captured_at: '2026-08-29T04:16:42.955063+00:00'
+  preexisting_untracked:
+  - path: projects/.harness-internal/tasks/HARNESS-0008.yaml
+    sha256: 1515eb182faf17b01c02c6f3ed313a3451a00c0f007bee06bc407729ba7d6c38
+assigned_specialists:
+- harness-maintainer
+scope:
+  planned_paths:
+    modify:
+    - projects/.harness-internal/tasks/HARNESS-0009.yaml
+    - projects/.harness-internal/evidence/HARNESS-0009/**
+    - engine/advisor/service.py
+    - engine/distribution/builder.py
+    - tests/test_distribution_builder.py
+    - tests/test_advisor_service.py
+    - tests/test_allowed_paths_post.py
+evidence:
+  tests:
+    status: passed
+  code_review:
+    status: approved
+  security_review:
+    status: passed
+created_at: '2026-08-29T00:05:00-04:00'
+updated_at: '2026-08-29T00:05:00-04:00'

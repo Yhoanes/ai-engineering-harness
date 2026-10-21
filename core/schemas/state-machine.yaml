@@ -1,0 +1,72 @@
+# Canonical State Machine Definition
+# This file is the single source of truth for all valid state transitions.
+
+status_values:
+  - draft
+  - awaiting_approval
+  - approved
+  - in_progress
+  - blocked
+  - completed
+  - completed_with_deviation
+  - rejected
+
+terminal_states:
+  - completed
+  - completed_with_deviation
+  - rejected
+
+approval_status_values:
+  - pending
+  - approved
+  - rejected
+
+acceptance_status_values:
+  - pending
+  - passed
+  - passed_with_deviation
+  - failed
+
+transitions:
+  draft:
+    - awaiting_approval
+  awaiting_approval:
+    - approved
+    - rejected
+  approved:
+    - in_progress
+  in_progress:
+    - blocked
+    - completed
+    - completed_with_deviation
+    - rejected
+  blocked:
+    - in_progress
+  # completed: [] (terminal)
+  # completed_with_deviation: [] (terminal)
+  # rejected: [] (terminal)
+
+transition_requirements:
+  "draft -> awaiting_approval":
+    validators: [validate_task_contract, validate_preconditions]
+  "awaiting_approval -> approved":
+    validators: [validate_transition, validate_approval_gate]
+    actor: human_only
+  "awaiting_approval -> rejected":
+    validators: [validate_transition]
+    actor: human_only
+  "approved -> in_progress":
+    validators: [validate_transition, validate_allowed_paths_pre, validate_authority, validate_preconditions]
+  "in_progress -> blocked":
+    validators: [validate_transition]
+  "blocked -> in_progress":
+    validators: [validate_transition]
+  "in_progress -> completed":
+    validators: [validate_transition, validate_allowed_paths_post, validate_evidence, validate_acceptance_gate]
+    actor: human_only
+  "in_progress -> completed_with_deviation":
+    validators: [validate_transition, validate_allowed_paths_post, validate_evidence, validate_acceptance_gate, validate_deviation]
+    actor: human_only
+  "in_progress -> rejected":
+    validators: [validate_transition]
+    actor: human_only

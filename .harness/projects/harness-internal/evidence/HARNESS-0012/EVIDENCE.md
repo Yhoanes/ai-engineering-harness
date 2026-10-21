@@ -1,0 +1,147 @@
+# Evidence for HARNESS-0012 Final Cleanup and Release Hygiene
+
+ROOT_OF_TRUST_HYGIENE_COMMIT: 1573633d
+EMPTY_ANALISTA_PRECHECK: EMPTY
+EMPTY_ANALISTA_HUMAN_DELETE: REMOVED
+IMPLEMENTATION_BASELINE: 3c38212faf2932aa66c32081fb3aeea9b3dcffa6
+GITIGNORE_CHANGE: Added /projects/* with !/projects/.harness-internal/ and !/projects/README.md
+GITIGNORE_TESTS: PASS (User projects ignored, internal task governance preserved)
+REMOVED_PATHS:
+  - dist/
+  - .pytest_cache/
+  - .ruff_cache/
+  - **/__pycache__/
+  - projects/analista/
+  - skills/_template/assets/
+  - skills/_template/references/
+  - skills/_template/scripts/
+  - tests/fixtures/antigravity/
+PRESERVED_PATHS: core/, engine/, adapters/, skills/, tests/, docs/, install/, packaging/, templates/, projects/.harness-internal/
+VENV_STATUS: KEEP_LOCAL_BUT_EXCLUDE_FROM_BACKUP/DISTRIBUTION
+USER_PROJECT_SAFETY: PASS
+INTERNAL_HISTORY_STATUS: PRESERVED
+SECRET_SCAN: PASS (0 real secrets found)
+MACHINE_PATH_SCAN: PASS (0 machine paths found in product files)
+FULL_PYTEST: 449 passed, 2 skipped, 0 failed
+RUFF_CHECK: PASS
+RUFF_FORMAT: PASS
+DIAGNOSTICS: PASS (STATUS: READY)
+PORTABLE_REGRESSION: PASS
+FINAL_CACHE_STATE: CLEARED (Post-verification)
+V1: PASS
+V5a: PASS
+V6: PASS
+V7: PASS
+V8: PASS
+V9: PASS
+V5b: PASS
+BLOCKERS: NONE
+
+==================================================
+FINAL STATUS
+==================================================
+
+FINAL_STATUS:
+completed
+
+ACCEPTANCE_STATUS:
+passed
+
+ACCEPTED_BY:
+Yhoanes
+
+ACCEPTED_AT:
+2026-08-29T09:08:45-04:00
+
+ROOT_OF_TRUST_HYGIENE_COMMIT:
+1573633d
+
+HYGIENE_AUTHORITY:
+PASS
+
+PROJECTS_AUTHORITY:
+BLOCKED
+
+VENV_AUTHORITY:
+BLOCKED
+
+EMPTY_ANALISTA_VERIFICATION:
+PASS
+
+EMPTY_ANALISTA_HUMAN_DELETE:
+PASS
+
+GITIGNORE_USER_PROJECT_PROTECTION:
+PASS
+
+USER_PROJECTS:
+PRESERVED_AND_IGNORED
+
+INTERNAL_HISTORY:
+PRESERVED
+
+VENV:
+KEEP_LOCAL_EXCLUDE_FROM_EXPORT
+
+DIST:
+REMOVED
+
+PYTEST_CACHE:
+REMOVED
+
+RUFF_CACHE:
+REMOVED
+
+PYTHON_CACHE:
+REMOVED
+
+TEMPORARY_TEST_ARTIFACTS:
+REMOVED
+
+REAL_SECRETS:
+NONE
+
+PRODUCT_MACHINE_PATHS:
+NONE
+
+HISTORICAL_EVIDENCE_MACHINE_PATHS:
+ALLOWED
+
+PORTABLE_REGRESSION:
+PASS
+
+DIAGNOSTICS:
+READY
+
+FULL_PYTEST:
+449 passed, 2 skipped, 0 failed
+
+RUFF_CHECK:
+PASS
+
+RUFF_FORMAT:
+PASS
+
+CODE_REVIEW:
+PASS
+
+SECURITY_REVIEW:
+PASS
+
+V4:
+PASS
+
+V8:
+PASS
+
+V9:
+PASS
+
+V5B:
+PASS
+
+V2_IN_PROGRESS_TO_COMPLETED:
+PASS
+
+BLOCKERS:
+NONE

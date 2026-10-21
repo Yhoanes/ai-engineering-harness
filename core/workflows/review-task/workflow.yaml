@@ -1,0 +1,34 @@
+id: review-task
+display_name: Review Task Workflow
+description: Workflow for review-task.
+purpose: Read-only code review. Does not modify code.
+allowed_specialists:
+- code-reviewer
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: review
+  description: Code review.
+  actor: system
+  action: review
+  required: true
+  on_failure: escalate
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: security-review
+  condition_summary: Code reviewed
+forbidden_actions:
+- modify-code

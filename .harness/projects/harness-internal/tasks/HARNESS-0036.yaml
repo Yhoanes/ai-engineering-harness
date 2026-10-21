@@ -1,0 +1,112 @@
+task_id: HARNESS-0036
+task_type: standard
+title: Fix Provider CLI Construction Contract
+description: Corregir desacople entre el CLI composition root y AntigravityExecutionProvider
+  descubierto en HARNESS-0035 E2E.
+project: harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T19:12:48Z'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T19:18:28Z'
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: b3cc6694a6d95848a0cc0d50ce8e7e22b63cac73
+  working_tree_clean: false
+  captured_at: '2026-08-31T19:09:00Z'
+  preexisting_untracked:
+  - .harness/projects/harness-internal/evidence/HARNESS-0022/audit_trail.jsonl
+  - .harness/projects/harness-internal/evidence/HARNESS-0035/validation.md
+  - .harness/projects/harness-internal/proposals/HARNESS-0022.md
+  - .harness/projects/harness-internal/tasks/HARNESS-0022.yaml
+  - .harness/projects/harness-internal/tasks/HARNESS-0035.yaml
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+      - engine/runner/__main__.py
+      - tests/test_orchestrator_engine.py
+      - tests/test_antigravity_execution_provider.py
+      - .harness/projects/harness-internal/tasks/HARNESS-0036.yaml
+      - .harness/projects/harness-internal/evidence/HARNESS-0036/validation.md
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.13.1.md
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: unrestricted
+    network_allowed: false
+    web: []
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history:
+- actor: Yhoanes
+  action: human_gate_approval
+  status: approved
+  timestamp: '2026-08-31T19:12:48Z'
+  reason: Controlled implementation to fix CLI provider composition bug authorized.
+- actor: Yhoanes
+  action: scope_amendment
+  status: approved
+  timestamp: '2026-08-31T19:18:28Z'
+  reason: HARNESS-0036 closure metadata and v1.13.1 release artifacts authorized.
+acceptance_history:
+- actor: Yhoanes
+  status: passed
+  timestamp: '2026-08-31T19:18:28Z'
+  reason: CLI provider composition fix accepted after real-constructor regression,
+    full regression, lint, diagnostics, and governance validation.
+created_at: '2026-08-31T19:09:00Z'
+updated_at: '2026-08-31T19:09:00Z'
+acceptance_criteria:
+- Root cause confirmed.
+- Provider constructor contract documented.
+- No duplicate repo_root authority introduced.
+- CLI provider composition uses valid constructor.
+- HarnessEngine still receives repo_root.
+- ExecutionRequest.workspace_root remains execution workspace authority.
+- Regression test would fail on v1.13.0 behavior.
+- Regression test passes after fix.
+- No real provider invocation during HARNESS-0036 tests.
+- HARNESS-0035 untouched.
+- Canary untouched.
+- HARNESS-0022 frozen.
+- Full suite PASS.
+- Ruff PASS.
+- Diagnostics READY.

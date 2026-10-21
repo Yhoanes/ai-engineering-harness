@@ -1,0 +1,161 @@
+task_id: HARNESS-0002
+task_type: standard
+title: Create the universal catalog of workflows for the AI Engineering Harness
+description: 'Creates the 14 universal workflows and shared rules for the AI Engineering
+  Harness.
+
+  '
+project: _harness-internal
+status: "completed"
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-28T19:07:31-04:00'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-28T19:18:07-04:00"
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: cf91a63af418d40f7451a46a996659b1335521e6
+  working_tree_clean: true
+  captured_at: '2026-08-28T23:08:45.111379+00:00'
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+    - core/workflows/discuss/workflow.yaml
+    - core/workflows/discuss/prompt.md
+    - core/workflows/analyze-requirement/workflow.yaml
+    - core/workflows/analyze-requirement/prompt.md
+    - core/workflows/design-solution/workflow.yaml
+    - core/workflows/design-solution/prompt.md
+    - core/workflows/plan-task/workflow.yaml
+    - core/workflows/plan-task/prompt.md
+    - core/workflows/approve-task/workflow.yaml
+    - core/workflows/approve-task/prompt.md
+    - core/workflows/implement-task/workflow.yaml
+    - core/workflows/implement-task/prompt.md
+    - core/workflows/test-task/workflow.yaml
+    - core/workflows/test-task/prompt.md
+    - core/workflows/review-task/workflow.yaml
+    - core/workflows/review-task/prompt.md
+    - core/workflows/security-review/workflow.yaml
+    - core/workflows/security-review/prompt.md
+    - core/workflows/debug-task/workflow.yaml
+    - core/workflows/debug-task/prompt.md
+    - core/workflows/performance-review/workflow.yaml
+    - core/workflows/performance-review/prompt.md
+    - core/workflows/document-task/workflow.yaml
+    - core/workflows/document-task/prompt.md
+    - core/workflows/release-task/workflow.yaml
+    - core/workflows/release-task/prompt.md
+    - core/workflows/close-task/workflow.yaml
+    - core/workflows/close-task/prompt.md
+    - core/workflows/_shared/preamble.md
+    - core/workflows/_shared/state-rules.md
+    - core/workflows/_shared/human-gate-rules.md
+    - core/workflows/_shared/evidence-rules.md
+    - core/workflows/_shared/handoff-rules.md
+    - tests/test_workflows.py
+    - projects/.harness-internal/evidence/HARNESS-0002/EVIDENCE.md
+    - projects/.harness-internal/tasks/HARNESS-0002.yaml
+    read:
+    - core/schemas/**
+    - core/authority/**
+    - core/policies/**
+    - core/specialists/**
+    - engine/**
+    - tests/**
+    - README.md
+  allowed_actions:
+    terminal:
+    - git
+    - pytest
+    - ruff
+    web: []
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: "passed"
+    skip_reason: null
+    run_at: "2026-08-28T19:14:00-04:00"
+    report_path: "projects/.harness-internal/evidence/HARNESS-0002/EVIDENCE.md"
+  code_review:
+    status: "approved"
+    skip_reason: null
+    reviewed_by: "code-reviewer"
+    reviewed_at: "2026-08-28T19:15:00-04:00"
+    report_path: "projects/.harness-internal/evidence/HARNESS-0002/EVIDENCE.md"
+  security_review:
+    status: "passed"
+    skip_reason: null
+    reviewed_by: "security-engineer"
+    reviewed_at: "2026-08-28T19:15:00-04:00"
+    report_path: "projects/.harness-internal/evidence/HARNESS-0002/EVIDENCE.md"
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history:
+- action: approved
+  approved_by: Yhoanes
+  approved_at: '2026-08-28T19:07:31-04:00'
+  reason: Approve universal workflow catalog
+acceptance_history:
+  - action: "passed"
+    accepted_by: "Yhoanes"
+    accepted_at: "2026-08-28T19:18:07-04:00"
+    reason: "Final implementation, tests, and evidence accepted."
+created_at: '2026-08-28T18:08:41-04:00'
+updated_at: '2026-08-28T18:08:41-04:00'
+acceptance_criteria:
+- id: AC-01
+  description: Existen exactamente 14 workflows.
+- id: AC-02
+  description: Cada workflow contiene workflow.yaml y prompt.md.
+- id: AC-03
+  description: Todos validan contra core/schemas/workflow.schema.yaml.
+- id: AC-04
+  description: Todos los allowed_specialists existen en core/specialists/.
+- id: AC-05
+  description: No hay referencias específicas a ANALISTA, Sportmonks, Telegram, apuestas
+    ni otros conceptos del primer proyecto.
+- id: AC-06
+  description: approve-task requiere human approval.
+- id: AC-07
+  description: close-task requiere human acceptance.
+- id: AC-08
+  description: implement-task exige approved antes de in_progress.
+- id: AC-09
+  description: review-task es read-only por defecto.
+- id: AC-10
+  description: security-review es read-only por defecto y respeta skip-policy.
+- id: AC-11
+  description: plan-task no implementa.
+- id: AC-12
+  description: discuss no modifica archivos.
+- id: AC-13
+  description: release-task no despliega sin autorización.
+- id: AC-14
+  description: debug-task exige diagnosis/reproduction antes de fix.
+- id: AC-15
+  description: performance-review exige measurement baseline.
+- id: AC-16
+  description: Todos los validators referenciados existen realmente.
+- id: AC-17
+  description: No se crean router, context loader, adapters ni ANALISTA.
+- id: AC-18
+  description: pytest y ruff pasan.
+- id: AC-19
+  description: V5b confirma 0 archivos fuera de scope.
+- id: AC-20
+  description: Se genera evidencia persistente antes de aceptación.

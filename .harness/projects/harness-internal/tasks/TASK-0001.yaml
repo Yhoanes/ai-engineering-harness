@@ -1,0 +1,170 @@
+# ═══════════════════════════════════════════════════════════════════
+# TASK-0001 — Extend Harness Schemas for Governed Specialist Tasks
+# ═══════════════════════════════════════════════════════════════════
+#
+# Prepares harness schemas to support HARNESS-XXXX task IDs and
+# complete specialist definitions. This is a prerequisite for
+# creating the specialist catalog (HARNESS-0001).
+#
+# No bootstrap exceptions apply to this task.
+# ═══════════════════════════════════════════════════════════════════
+
+# ─── Identification ───
+task_id: "TASK-0001"
+task_type: "standard"
+title: "Extend harness schemas for governed specialist tasks"
+description: >
+  Extend core schemas to support: (1) HARNESS-XXXX task IDs in the
+  task contract schema, and (2) complete specialist definitions with
+  all required fields (authority_profile, task_capabilities,
+  context_requirements, output_contract, escalation_rules, etc.).
+  Add tests to validate all patterns and field requirements.
+  This is a prerequisite for the specialist catalog task.
+project: "_harness-internal"
+
+# ─── Relations ───
+supersedes: null
+superseded_by: null
+depends_on: ["HARNESS-BOOTSTRAP-0001"]
+blocks: []
+
+# ─── Status ───
+status: "completed"
+
+# ─── Approval (flat fields) ───
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-28T16:43:07-04:00"
+approval_source: "antigravity_chat"
+approval_session_id: null
+approval_receipt: null
+
+# ─── Acceptance (flat fields) ───
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-28T17:18:47-04:00"
+
+# ─── Deviation ───
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+
+# ─── Implementation Baseline ───
+implementation_baseline:
+  git_head: "930ce8e"
+  working_tree_clean: true
+  captured_at: "2026-08-28T16:45:52-04:00"
+
+# ─── Scope ───
+scope:
+  planned_paths:
+    modify:
+      # Schemas to extend
+      - "core/schemas/task-contract.schema.yaml"
+      - "core/schemas/specialist.schema.yaml"
+      # Tests
+      - "tests/test_schemas.py"
+      - "tests/test_task_contract.py"
+      # Task contract (self)
+      - "projects/.harness-internal/tasks/TASK-0001.yaml"
+      # Evidence
+      - "projects/.harness-internal/evidence/TASK-0001/EVIDENCE.md"
+    read:
+      - "core/**"
+      - "engine/**"
+      - "tests/**"
+      - "README.md"
+  allowed_actions:
+    terminal:
+      - "pytest"
+      - "ruff check"
+      - "ruff format"
+      - "python"
+      - "git status"
+      - "git diff"
+      - "git add"
+      - "git commit"
+  forbidden_actions: []
+
+# ─── Assignment ───
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - harness-maintainer
+
+# ─── Evidence ───
+evidence:
+  tests:
+    status: "passed"
+    skip_reason: null
+    run_at: "2026-08-28T16:49:21-04:00"
+    report_path: "projects/.harness-internal/evidence/TASK-0001/EVIDENCE.md"
+  code_review:
+    status: "approved"
+    skip_reason: null
+    reviewed_by: "code-reviewer"
+    reviewed_at: "2026-08-28T17:03:30-04:00"
+    report_path: "projects/.harness-internal/evidence/TASK-0001/EVIDENCE.md"
+  security_review:
+    status: "passed"
+    skip_reason: null
+    reviewed_by: "security-engineer"
+    reviewed_at: "2026-08-28T17:03:30-04:00"
+    report_path: "projects/.harness-internal/evidence/TASK-0001/EVIDENCE.md"
+
+# ─── Postcheck ───
+postcheck:
+  actual_paths_modified: []
+  postcheck_status: null
+  postcheck_at: null
+
+# ─── Audit ───
+approval_history:
+  - action: "approved"
+    approved_by: "Yhoanes"
+    approved_at: "2026-08-28T16:43:07-04:00"
+    reason: "Human approval for schema extension task"
+acceptance_history:
+  - action: "accepted"
+    accepted_by: "Yhoanes"
+    accepted_at: "2026-08-28T17:18:47-04:00"
+    reason: "Implementation, independent reviews, and evidence accepted"
+
+# ─── Metadata ───
+created_at: "2026-08-28T16:14:12-04:00"
+updated_at: "2026-08-28T17:18:47-04:00"
+
+# ─── Acceptance Criteria ───
+acceptance_criteria:
+  - id: "AC-01"
+    description: "task-contract.schema.yaml accepts TASK-XXXX, HARNESS-XXXX, and HARNESS-BOOTSTRAP-XXXX patterns"
+  - id: "AC-02"
+    description: "task-contract.schema.yaml rejects invalid task IDs (no pattern match)"
+  - id: "AC-03"
+    description: "specialist.schema.yaml requires id, display_name, description, category, purpose, capabilities, limitations, authority_profile, task_capabilities, context_requirements, output_contract, escalation_rules"
+  - id: "AC-04"
+    description: "specialist.schema.yaml task_capabilities requires propose_task, create_task, approve_task, accept_task, close_task (all boolean)"
+  - id: "AC-05"
+    description: "Tests exist for valid TASK-0001, HARNESS-0001, HARNESS-BOOTSTRAP-0001 task IDs"
+  - id: "AC-06"
+    description: "Tests exist for invalid task IDs"
+  - id: "AC-07"
+    description: "Tests exist for complete valid specialist definition"
+  - id: "AC-08"
+    description: "Tests exist for missing required specialist fields"
+  - id: "AC-09"
+    description: "Tests exist for incomplete task_capabilities"
+  - id: "AC-10"
+    description: "Tests exist for invalid types in specialist fields"
+  - id: "AC-11"
+    description: "Existing tests remain passing (no regressions)"
+  - id: "AC-12"
+    description: "No specialist definitions, workflows, router, context loader, adapters, or ANALISTA files created"
+  - id: "AC-13"
+    description: "pytest, ruff check, ruff format pass"
+  - id: "AC-14"
+    description: "V5b postcheck confirms all modified files within scope"
+  - id: "AC-15"
+    description: "Persistent evidence generated before acceptance"

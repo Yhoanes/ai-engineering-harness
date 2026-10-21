@@ -1,0 +1,36 @@
+id: plan-task
+display_name: Plan Task Workflow
+description: Workflow for plan-task.
+purpose: Materialize Task Contract, define scope, ACs, specialists, and evidence gates.
+  Terminates in awaiting_approval.
+allowed_specialists:
+- orchestrator
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: plan
+  description: Draft task contract.
+  actor: system
+  action: plan
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: approve-task
+  condition_summary: Wait for approval
+forbidden_actions:
+- implementation
+- auto-approval

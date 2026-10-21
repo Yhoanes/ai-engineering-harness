@@ -1,0 +1,32 @@
+include:
+  - ".agents/**"
+  - "core/**"
+  - "engine/**"
+  - "adapters/**"
+  - "templates/**"
+  - "docs/**"
+  - "install/**"
+  - "tests/**"
+  - "skills/**"
+  - "INSTALAR.cmd"
+  - "LICENSE"
+  - "README.md"
+  - "VERSION"
+  - "pyproject.toml"
+
+exclude_defensive:
+  - ".git"
+  - ".venv"
+  - "__pycache__"
+  - ".pytest_cache"
+  - ".ruff_cache"
+  - "*.egg-info"
+  - "dist"
+  - "build"
+  - "htmlcov"
+  - ".coverage"
+  - "projects/.harness-internal/**"
+  - "projects/*/**"  # Exclude any real user project inside projects/
+
+generated:
+  - "projects/README.md"

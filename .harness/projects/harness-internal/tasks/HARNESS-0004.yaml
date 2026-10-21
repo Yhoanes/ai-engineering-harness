@@ -1,0 +1,157 @@
+task_id: HARNESS-0004
+status: completed
+task_type: standard
+title: Implement Antigravity Adapter for the AI Engineering Harness
+description: Implementar el adapter de Antigravity para conectar la interfaz/conversación de Antigravity con el runtime del AI Engineering Harness ya existente.
+project: _harness-internal
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-28T20:47:23-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-28T21:08:23-04:00'
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: c24d379f59004b63e0115abf9d1a7d94937586f3
+  working_tree_clean: true
+  captured_at: '2026-08-28T20:49:00-04:00'
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+    - adapters/antigravity/**
+    - tests/test_antigravity_adapter.py
+    - tests/test_antigravity_prompt_builder.py
+    - tests/test_antigravity_response_parser.py
+    - tests/fixtures/antigravity/**
+    - projects/.harness-internal/tasks/HARNESS-0004.yaml
+    - projects/.harness-internal/evidence/HARNESS-0004/**
+    read:
+    - core/**
+    - engine/**
+    - adapters/**
+    - tests/**
+    - README.md
+  allowed_actions:
+    terminal:
+    - build
+    - test
+    - lint
+    web: []
+  forbidden_actions:
+  - approve_task
+  - accept_task
+  - close_task
+  - deploy
+  - modify_authority
+  - create_task
+assigned_workflow: plan-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: null
+  code_review:
+    status: null
+  security_review:
+    status: null
+postcheck:
+  status: null
+approval_history:
+- action: approved
+  approved_by: Yhoanes
+  approved_at: '2026-08-28T20:47:23-04:00'
+  reason: Implement adapter
+acceptance_history:
+- action: passed
+  accepted_by: Yhoanes
+  accepted_at: '2026-08-28T21:08:23-04:00'
+  reason: Surgically repaired adapter path vulnerabilities
+created_at: "2026-08-28T20:38:00+00:00"
+updated_at: "2026-08-28T20:38:00+00:00"
+acceptance_criteria:
+- id: AC-01
+  description: AntigravityRequest valida project y user_input.
+- id: AC-02
+  description: conversation_context queda informational_only.
+- id: AC-03
+  description: requested_workflow no bypassa Router.
+- id: AC-04
+  description: Adapter consume RouteDecision real.
+- id: AC-05
+  description: Adapter consume OrchestratorHandoff real.
+- id: AC-06
+  description: discuss -> general-advisor.
+- id: AC-07
+  description: implement sin Task Contract -> plan-task.
+- id: AC-08
+  description: awaiting_approval -> approve-task.
+- id: AC-09
+  description: approved + approval_status approved -> implement-task.
+- id: AC-10
+  description: approved + approval_status no aprobado -> NO implement-task.
+- id: AC-11
+  description: Prompt Builder carga specialist real.
+- id: AC-12
+  description: Prompt Builder carga workflow real.
+- id: AC-13
+  description: Prompt Builder respeta jerarquía governance antes de user input.
+- id: AC-14
+  description: Prompt injection no puede eliminar restrictions.
+- id: AC-15
+  description: Conversation no se convierte en source of truth.
+- id: AC-16
+  description: ExecutionPlan incluye context bundle real.
+- id: AC-17
+  description: ExecutionPlan incluye restrictions.
+- id: AC-18
+  description: PLAN_ONLY no ejecuta executor.
+- id: AC-19
+  description: EXECUTE requiere executor explícito.
+- id: AC-20
+  description: FakeExecutor puede ejecutar plan en tests.
+- id: AC-21
+  description: Adapter no hace network calls.
+- id: AC-22
+  description: Adapter no hace filesystem writes funcionales.
+- id: AC-23
+  description: Adapter no hace git commit/push.
+- id: AC-24
+  description: Adapter no autoaprueba.
+- id: AC-25
+  description: Adapter no autoacepta.
+- id: AC-26
+  description: Adapter no autocierra.
+- id: AC-27
+  description: Response parser conserva raw_text.
+- id: AC-28
+  description: Structured output válido se interpreta.
+- id: AC-29
+  description: Structured output inválido produce warning, no inventa datos.
+- id: AC-30
+  description: Parser no inventa PASS de tests/reviews.
+- id: AC-31
+  description: No hardcode model provider.
+- id: AC-32
+  description: No hardcode ANALISTA.
+- id: AC-33
+  description: No referencias Sportmonks/Telegram/apuestas.
+- id: AC-34
+  description: pytest completo pasa.
+- id: AC-35
+  description: ruff check/format pasa.
+- id: AC-36
+  description: V5b 0 fuera de scope.
+- id: AC-37
+  description: Independent Code Review.
+- id: AC-38
+  description: Independent Security Review.
+- id: AC-39
+  description: Evidence persistente antes de aceptación.
+- id: AC-40
+  description: Default mode = PLAN_ONLY.

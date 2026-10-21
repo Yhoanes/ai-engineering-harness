@@ -1,0 +1,27 @@
+﻿# HARNESS-0036 Validation
+
+- HARNESS-0035 first E2E discovery: Yes.
+- original TypeError: AntigravityExecutionProvider.__init__() takes exactly one argument (the instance to initialize)
+- corrected root-cause wording: AntigravityExecutionProvider does not define a custom __init__ accepting repo_root. The CLI composition root passed repo_root even though the concrete provider is currently constructed with no arguments. ExecutionRequest.workspace_root remains the execution workspace source of truth.
+- provider stateless: Confirmed.
+- ExecutionRequest.workspace_root source of truth: Confirmed.
+- exact one-line production fix: Changed provider = AntigravityExecutionProvider(repo_root=repo_root) to provider = AntigravityExecutionProvider() in engine/runner/__main__.py.
+- provider implementation unchanged: Yes.
+- orchestrator unchanged: Yes.
+- real constructor regression test: Added to test_orchestrator_engine.py.
+- HarnessEngine mocked: Yes.
+- no provider executions: Confirmed.
+- no agy executions: Confirmed.
+- constructor smoke test: Added to test_antigravity_execution_provider.py.
+- exact specific test results: orchestrator: 9 passed, provider: 18 passed.
+- exact full suite result: PASS
+- exact collected count: 660 collected (656 passed, 4 skipped)
+- Ruff All checks passed: Confirmed, Exit 0.
+- diff check PASS: Confirmed.
+- diagnostics READY: Confirmed.
+- Task validator PASS: Confirmed.
+- version consistency PASS: Confirmed.
+- canary invariant: tests/fixtures/provider_e2e_canary.txt unchanged, SHA-256 remains 3A70B82D30BC6DA80B97C1F0FE99C8A46DD38ECA6A1483F339BB7897EF2A32D1.
+- HARNESS-0035 preserved: Confirmed.
+- HARNESS-0022 frozen: Confirmed.
+- Human Acceptance by Yhoanes: 2026-08-31T19:18:28Z.

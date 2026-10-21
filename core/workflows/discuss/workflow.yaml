@@ -1,0 +1,33 @@
+id: discuss
+display_name: Discuss Workflow
+description: Workflow for discuss.
+purpose: Exploratory and read-only discussion.
+allowed_specialists:
+- general-advisor
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: explore
+  description: Explore topics with user.
+  actor: system
+  action: none
+  required: true
+  on_failure: continue
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows: []
+forbidden_actions:
+- git commit
+- pytest --update

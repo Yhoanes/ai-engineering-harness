@@ -1,0 +1,81 @@
+task_id: "TASK-0001"
+task_type: "standard"
+title: "Implement user authentication endpoint"
+description: "Create POST /auth/login with JWT token generation."
+project: "analista"
+
+supersedes: null
+superseded_by: null
+depends_on: []
+blocks: []
+
+status: "in_progress"
+
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-28T14:00:00-04:00"
+approval_source: "antigravity_chat"
+approval_session_id: null
+approval_receipt: null
+
+acceptance_status: "pending"
+accepted_by: null
+accepted_at: null
+
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+
+implementation_baseline:
+  git_head: "abc123def456"
+  working_tree_clean: true
+  captured_at: "2026-08-28T14:05:00-04:00"
+
+scope:
+  planned_paths:
+    modify:
+      - "projects/analista/src/auth/**"
+      - "projects/analista/src/middleware/jwt.py"
+    read:
+      - "projects/analista/src/**"
+  allowed_actions:
+    terminal: ["pytest", "ruff check"]
+  forbidden_actions: []
+
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - backend-engineer
+  - qa-engineer
+
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+
+postcheck:
+  actual_paths_modified: []
+  postcheck_status: null
+  postcheck_at: null
+
+approval_history: []
+acceptance_history: []
+
+created_at: "2026-08-28T13:00:00-04:00"
+updated_at: "2026-08-28T14:05:00-04:00"

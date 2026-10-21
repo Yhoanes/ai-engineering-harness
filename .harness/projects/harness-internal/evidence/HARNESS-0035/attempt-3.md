@@ -1,0 +1,27 @@
+﻿# HARNESS-0035 E2E Attempt 3
+
+- Attempt 1 = FAIL — CLI provider construction bug.
+- Attempt 2 = FAIL — malformed Task metadata.
+- Attempt 3 = FAIL — Antigravity headless permissions auto-denial.
+- corrected metadata preflight: YES, preexisting_untracked uses correct object schema.
+- stored untracked hashes: 
+  - .harness/projects/harness-internal/evidence/HARNESS-0022/audit_trail.jsonl: 5012e80d2f785ed8062f160c423a830ea2ea10f62c3289d3599d13bea9920c74
+  - .harness/projects/harness-internal/evidence/HARNESS-0035/validation.md: bcee7dc35b2266af608c9529072585f5a20b629da861a1fce8297eb28ca79400
+  - .harness/projects/harness-internal/evidence/HARNESS-0035/attempt-2.md: cfd516e814041d6bb1d6efee3dc7d9df4249a5bba61d67285141ef3258dbfb4f
+  - .harness/projects/harness-internal/proposals/HARNESS-0022.md: 4b63deb4233d9b35e2599338146fc8ad7d15919f082c6b509b56661351d2b6ed
+  - .harness/projects/harness-internal/tasks/HARNESS-0022.yaml: 31deffa1a737a0029a3ab4a2da3365b1d796ed43fae43ed938944b6ac83ac7c2
+- hash-match result: PREEXISTING UNTRACKED HASHES MATCH: YES.
+- authoritative Task load: PASS.
+- REAL Task<=Matrix validation: PASS.
+- exact authority validation API used: engine.orchestrator.engine.HarnessEngine._validate_authority().
+- baseline: 379fe63707e933f742de4ee7fb15516071c12c77.
+- pre-canary: provider-e2e-baseline / 3A70B82D30BC6DA80B97C1F0FE99C8A46DD38ECA6A1483F339BB7897EF2A32D1.
+- command: .venv\Scripts\python.exe -m engine.runner --project harness-internal --task-id HARNESS-0035 --intent "Cambiar exactamente el contenido de tests/fixtures/provider_e2e_canary.txt de 'provider-e2e-baseline' a 'provider-e2e-completed' sin modificar ningún otro archivo." --execution-mode provider
+- CLI count: 1.
+- output/result: EXIT 0 from engine.runner CLI, but ExecutionResult.status == FAILED.
+- sandbox evidence: udit_trail.jsonl shows sandbox_created and dispatched to host_executor: agy_cli.
+- physical diff: [Empty].
+- final canary: provider-e2e-baseline.
+- no-fallback: YES. Provider execution failed, and it did not fall back to legacy mode.
+- network/isolation truth: Task network: NO. Transport network: NOT PROVEN BY RUNTIME LOG. Native isolation: FALSE. Physical read isolation: NOT PROVEN BY RUNTIME LOG. Network sandbox: NOT PROVEN BY RUNTIME LOG.
+- PASS/FAIL exact reason: ATTEMPT #3 FAIL. The provider correctly spawned gy inside the WorktreeSandbox, but gy ran in headless mode and auto-denied a tool request requiring the command permission (because headless mode cannot prompt the user). gy exited with SUCCESS but empty response, which the Provider correctly intercepted and marked as ExecutionResult(status=FAILED). No changes were applied to main.

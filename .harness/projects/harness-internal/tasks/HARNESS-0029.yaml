@@ -1,0 +1,36 @@
+task_id: "HARNESS-0029"
+title: "Disambiguate ExecutionCapabilities Collections"
+project: "harness-internal"
+status: "completed"
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-31T01:08:29-04:00"
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-31T01:11:52-04:00"
+task_type: "standard"
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - "harness-maintainer"
+
+description: |
+  Perform a micro-correction to the ExecutionCapabilities model (HARNESS-0027) 
+  to resolve the semantic ambiguity of empty collections.
+  
+  Currently, rozenset() could mean "deny-all" or "unrestricted" depending on 
+  the implicit context. This task introduces a rigorous, explicit ScopedAccess 
+  model using AccessMode (DENY_ALL, ALLOW_LIST, UNRESTRICTED).
+  
+  This disambiguation unblocks HARNESS-0028, allowing the legacy provider to 
+  authoritatively and safely evaluate what it can and cannot support.
+
+scope:
+  planned_paths:
+    modify:
+      - "engine/execution/models.py"
+      - "tests/test_execution_contracts.py"
+  allowed_actions:
+    terminal: []
+  forbidden_actions:
+    - "Modify runtime or adapters"
+    - "Implement providers"

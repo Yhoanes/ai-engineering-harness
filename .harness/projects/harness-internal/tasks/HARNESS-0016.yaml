@@ -1,0 +1,114 @@
+task_id: HARNESS-0016
+task_type: standard
+title: Remove Global Git Identity Requirement from Portability Tests
+description: |
+  Correct the clean-machine recovery failure in test_export_builder by supplying a
+  command-scoped identity to the temporary Git commit, and document the actual Git
+  prerequisite without requiring global user configuration. Release as v1.1.1.
+project: _harness-internal
+status: completed_with_deviation
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-30T10:40:47-04:00'
+approval_source: user_conversation
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed_with_deviation
+accepted_by: Yhoanes
+accepted_at: '2026-08-30T10:40:47-04:00'
+deviation:
+  documented: true
+  description: |
+    The recovery test exposed the defect after v1.1.0 certification. The three
+    corrective working-tree changes were applied by a controlled local applicator
+    before this task contract was materialized.
+  impact: |
+    Scope was limited to the failing test and its documentation. The v1.1.0 commit
+    and tag remained unchanged. Full validation completed before release packaging.
+  accepted_by: Yhoanes
+  accepted_at: '2026-08-30T10:40:47-04:00'
+implementation_baseline:
+  git_head: 814fd0895224de615dd656876de1ccedbc034ce8
+  working_tree_clean: false
+  captured_at: '2026-08-30T10:40:47-04:00'
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+      - README.md
+      - docs/installation.md
+      - tests/test_export_builder.py
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.1.1.md
+      - projects/.harness-internal/tasks/HARNESS-0016.yaml
+      - projects/.harness-internal/evidence/HARNESS-0016/**
+    read:
+      - core/**
+      - engine/export/**
+      - tests/**
+      - docs/releases/v1.1.0.md
+  allowed_actions:
+    terminal:
+      - git
+      - pytest
+      - ruff
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+evidence:
+  tests:
+    status: passed
+    skip_reason: null
+    run_at: '2026-08-30T10:26:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0016/EVIDENCE.md
+  code_review:
+    status: approved
+    skip_reason: null
+    reviewed_by: Codex
+    reviewed_at: '2026-08-30T10:40:47-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0016/EVIDENCE.md
+  security_review:
+    status: passed
+    skip_reason: null
+    reviewed_by: Codex
+    reviewed_at: '2026-08-30T10:40:47-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0016/EVIDENCE.md
+postcheck:
+  actual_paths_modified:
+    - README.md
+    - docs/installation.md
+    - tests/test_export_builder.py
+    - VERSION
+    - pyproject.toml
+    - docs/releases/v1.1.1.md
+    - projects/.harness-internal/tasks/HARNESS-0016.yaml
+    - projects/.harness-internal/evidence/HARNESS-0016/EVIDENCE.md
+  postcheck_status: passed
+  postcheck_at: '2026-08-30T10:40:47-04:00'
+approval_history:
+  - action: approved
+    approved_by: Yhoanes
+    approved_at: '2026-08-30T10:40:47-04:00'
+    reason: Approved root-cause correction and v1.1.1 release preparation.
+acceptance_history:
+  - action: passed_with_deviation
+    accepted_by: Yhoanes
+    accepted_at: '2026-08-30T10:40:47-04:00'
+    reason: Corrective scope validated without global Git identity.
+created_at: '2026-08-30T10:40:47-04:00'
+updated_at: '2026-08-30T10:40:47-04:00'
+acceptance_criteria:
+  - id: AC-01
+    description: Full tests pass on a clean Git installation without global user identity.
+  - id: AC-02
+    description: Temporary test identity is scoped to one Git commit command.
+  - id: AC-03
+    description: No Git global or repository configuration is persisted by the test.
+  - id: AC-04
+    description: README and installation documentation state the real prerequisites.
+  - id: AC-05
+    description: VERSION and package metadata agree on 1.1.1.
+  - id: AC-06
+    description: The existing v1.1.0 tag remains unchanged.

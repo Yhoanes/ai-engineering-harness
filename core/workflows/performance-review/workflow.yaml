@@ -1,0 +1,35 @@
+id: performance-review
+display_name: Performance Review Workflow
+description: Workflow for performance-review.
+purpose: 'Measurement first: measure, baseline, bottleneck, recommend, optimize (if
+  authorized), re-measure.'
+allowed_specialists:
+- performance-engineer
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: measure
+  description: Measure performance.
+  actor: system
+  action: measure
+  required: true
+  on_failure: continue
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: close-task
+  condition_summary: Performance verified
+forbidden_actions:
+- optimize-without-baseline

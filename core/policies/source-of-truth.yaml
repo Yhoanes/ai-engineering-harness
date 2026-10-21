@@ -1,0 +1,50 @@
+# Source of Truth Policy (D7)
+# Authority is defined per domain, not globally.
+
+domains:
+  repository_content:
+    authority: git
+    description: "Actual file contents in the repository."
+
+  authorization_and_scope:
+    authority: [task-contract, authority-matrix]
+    description: "What is authorized and within what scope."
+
+  task_operational_state:
+    authority: task-contract
+    description: "Status, approval, acceptance, assignment of each task."
+
+  verification_results:
+    authority: evidence
+    description: "Test results, code review, security review reports."
+    location: "projects/{{project}}/evidence/"
+
+  project_summary_state:
+    authority: current-state.md
+    description: "Canonical summary of current project state."
+
+  ai_conversation:
+    authority: informational_only
+    description: "Conversations with specialists and advisor. NEVER a source of truth."
+
+inconsistency_handling:
+  policy: >
+    Discrepancies between domains are reported as INCONSISTENCY.
+    Never resolved automatically.
+  rules:
+    - id: INC-001
+      scenario: "Git shows changes not covered by any active Task Contract."
+      action: "Report. Block continuation until human resolution."
+      forbidden: "Create or modify a Task Contract to legitimize changes found in Git."
+    - id: INC-002
+      scenario: "Conversation says something was approved, but Task Contract has approval_status: pending."
+      action: "Task Contract prevails. NOT approved."
+    - id: INC-003
+      scenario: "Evidence says tests failed, conversation says they passed."
+      action: "Evidence prevails. Tests failed."
+    - id: INC-004
+      scenario: "current-state.md is outdated vs Task Contracts."
+      action: "Regenerate current-state.md from active Task Contracts."
+    - id: INC-005
+      scenario: "Task Contract says status=completed but evidence is missing."
+      action: "Report. Block acceptance until evidence exists."

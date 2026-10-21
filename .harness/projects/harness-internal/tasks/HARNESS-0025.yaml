@@ -1,0 +1,66 @@
+task_id: HARNESS-0025
+task_type: standard
+title: Introduce Harness Metadata Path Abstraction
+description: |
+  Create a single metadata path resolver component to abstract away 
+  the hardcoded 'projects/<project>/tasks|evidence|proposals' paths. 
+  This prepares the system for the upcoming Harness 2.0 migration to 
+  '.harness/' without moving any physical files yet.
+  
+  The MetadataPaths component will strictly handle ONLY metadata resolution. 
+  It will centralize and reuse existing canonical regex validations for 
+  project_id, task_id, and safe path traversal, avoiding duplication.
+project: .harness-internal
+status: completed_with_deviation
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-30T23:34:00-04:00"
+acceptance_status: passed_with_deviation
+accepted_by: Yhoanes
+accepted_at: "2026-08-30T23:44:00-04:00"
+deviation:
+  documented: true
+  description: "La implementación NO ocurrió mediante el AutonomousRunner gobernado. Fue realizada directamente por harness-maintainer debido al defecto conocido del executor/provider que detiene la ejecución autónoma."
+  impact: "No se generó audit_trail.jsonl automático ni artefactos de sandbox del autonomous runner. El código fue implementado y probado manualmente, pasando todos los tests."
+  accepted_by: Yhoanes
+  accepted_at: "2026-08-30T23:44:00-04:00"
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      - core/context/metadata_paths.py
+      - engine/context/loader.py
+      - engine/validators/validate_allowed_paths_post.py
+      - adapters/antigravity/adapter.py
+      - adapters/antigravity/autonomous_runner.py
+      - tests/test_metadata_paths.py
+      - tests/test_context_loader.py
+      - tests/test_allowed_paths_post.py
+      - tests/test_autonomous_runner.py
+    read:
+      - tests/test_e2e_implement.py
+      - core/schemas/task-contract.schema.yaml
+      - engine/distribution/builder.py
+  allowed_actions:
+    terminal:
+      - test
+    web: []
+  forbidden_actions: []
+evidence:
+  tests:
+    status: null
+acceptance_criteria:
+  - 'A new MetadataPaths component is created in core.'
+  - 'MetadataPaths strictly resolves metadata paths ONLY (no workspace_root).'
+  - 'Existing canonical validators for project_id, task_id, and safe_path are extracted from engine/context/loader.py and reused in MetadataPaths without duplicating regex.'
+  - 'It handles the canonical .harness-internal vs legacy alias _harness-internal mapping correctly in one central place.'
+  - 'engine/context/loader.py uses MetadataPaths for ALL its metadata loading (memory, context, tasks, proposals, evidence, sessions).'
+  - 'adapters/antigravity/adapter.py is updated to use MetadataPaths.'
+  - 'adapters/antigravity/autonomous_runner.py is updated to use MetadataPaths.'
+  - 'engine/validators/validate_allowed_paths_post.py is updated to use MetadataPaths.'
+  - 'Tests are added or updated to prove callers use MetadataPaths correctly.'
+  - 'No physical files or directories are moved or created (except the new python file and tests).'
+  - 'No projects under projects/ are modified.'
+created_at: "2026-08-30T23:32:00Z"

@@ -1,0 +1,203 @@
+task_id: HARNESS-0003
+task_type: standard
+title: Implement Router, Orchestrator Runtime, and Context Loader
+description: 'Implement the coordination runtime layer for the AI Engineering Harness
+  to connect user requests, specialists, workflows, contracts, and progressive context.
+
+
+  Architectural Clarifications:
+
+  1. PROJECT ROOT RESOLUTION: The system uses a deterministic `resolve_project_root`
+  function mapping `_harness-internal` explicitly to `projects/.harness-internal/`
+  and general projects to `projects/<key>/`. Strict validation prevents `../`, absolute
+  paths, and external symlinks.
+
+  2. TASK ID MATERIALIZATION: The Orchestrator calls `next_task_id(existing_ids, prefix="TASK")`
+  to predictably generate sequential IDs (e.g., TASK-0001) without randomness or UUIDs,
+  ensuring determinism and collision safety.
+
+  3. INTERNAL MODELS: Using strictly typed `dataclasses` for `RouteDecision`, `OrchestratorHandoff`,
+  and `ContextBundle`. `__post_init__` enforces invariants like `0.0 <= confidence
+  <= 1.0` and `context_level in {0, 1, 2, 3}`.
+
+  4. ROUTING: The Router only recommends. Lacking an approved contract for implementation
+  routes to `plan-task` or `approve-task`. Only the Authority Matrix + Contract determines
+  execution rights.
+
+  5. CONTEXT SAFETY: The Loader enforces deterministic byte limits per file/bundle,
+  rejects binary files, skips unreadable files with a warning, and aggressively rejects
+  external symlink escapes.'
+project: _harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-28T19:39:53-04:00'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-28T20:22:45-04:00'
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+implementation_baseline:
+  git_head: ef9eec297c281433ef1660f172ad0a883ce96fdc
+  working_tree_clean: true
+  captured_at: '2026-08-28T23:42:22.342945+00:00'
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+    - engine/router/**
+    - engine/orchestrator/**
+    - engine/context/**
+    - tests/test_router.py
+    - tests/test_orchestrator.py
+    - tests/test_context_loader.py
+    - tests/fixtures/context/**
+    - projects/.harness-internal/tasks/HARNESS-0003.yaml
+    - projects/.harness-internal/evidence/HARNESS-0003/**
+    read:
+    - core/**
+    - engine/**
+    - tests/**
+    - README.md
+  allowed_actions:
+    terminal:
+    - git
+    - pytest
+    - ruff
+    web: []
+  forbidden_actions:
+  - core/schemas modification
+  - adapters implementation
+  - ANALISTA implementation
+  - network invocation
+  - auto-approval
+assigned_workflow: plan-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: passed
+    skip_reason: null
+    run_at: '2026-08-28T19:47:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0003/EVIDENCE.md
+  code_review:
+    status: approved
+    skip_reason: null
+    reviewed_by: code-reviewer
+    reviewed_at: '2026-08-28T19:47:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0003/EVIDENCE.md
+  security_review:
+    status: passed
+    skip_reason: null
+    reviewed_by: security-engineer
+    reviewed_at: '2026-08-28T19:47:00-04:00'
+    report_path: projects/.harness-internal/evidence/HARNESS-0003/EVIDENCE.md
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history:
+- action: approved
+  approved_by: Yhoanes
+  approved_at: '2026-08-28T19:39:53-04:00'
+  reason: Approve coordination runtime task
+acceptance_history:
+- action: accepted
+  accepted_by: Yhoanes
+  accepted_at: '2026-08-28T20:22:45-04:00'
+  reason: Harness 0003 runtime successfully implemented and verified
+created_at: '2026-08-28T23:32:05.980173+00:00'
+updated_at: '2026-08-28T23:32:05.980182+00:00'
+acceptance_criteria:
+- id: AC-01
+  description: Router returns valid 14 workflow IDs based on structured intent.
+- id: AC-02
+  description: Router never returns nonexistent workflow.
+- id: AC-03
+  description: Router never returns nonexistent specialist.
+- id: AC-04
+  description: Simple conversational request -> discuss + general-advisor.
+- id: AC-05
+  description: Implementation request without Task Contract -> recommends planning/approval.
+- id: AC-06
+  description: Implementation request with approved Contract -> implement-task allowed.
+- id: AC-07
+  description: Task Contract awaiting_approval -> Router recommends approve-task before
+    implement-task.
+- id: AC-08
+  description: Task completed ready for closure -> close-task.
+- id: AC-09
+  description: Ambiguity produces unresolved_ambiguities, no invented actions.
+- id: AC-10
+  description: Orchestrator consumes valid RouteDecision.
+- id: AC-11
+  description: Orchestrator rejects nonexistent workflow.
+- id: AC-12
+  description: Orchestrator rejects nonexistent specialist.
+- id: AC-13
+  description: Orchestrator does not implement code.
+- id: AC-14
+  description: Orchestrator does not auto-approve/auto-close.
+- id: AC-15
+  description: Orchestrator materializes Task Contract draft for plan-task.
+- id: AC-16
+  description: Task Contract validates against task-contract.schema.yaml.
+- id: AC-17
+  description: Context Loader loads Level 0.
+- id: AC-18
+  description: Context Loader loads Level 0+1.
+- id: AC-19
+  description: Context Loader loads Level 2 only when requested.
+- id: AC-20
+  description: Level 3 not loaded by default.
+- id: AC-21
+  description: Missing context files don't crash, reported in missing_sources.
+- id: AC-22
+  description: Path traversal blocked.
+- id: AC-23
+  description: Absolute path escape blocked.
+- id: AC-24
+  description: Symlink escape blocked.
+- id: AC-25
+  description: Context size limits enforced deterministically.
+- id: AC-26
+  description: Conversation never treated as source of truth.
+- id: AC-27
+  description: General Advisor route doesn't require Task Contract.
+- id: AC-28
+  description: No hardcoded references to ANALISTA etc.
+- id: AC-29
+  description: No adapters created.
+- id: AC-30
+  description: No network/web/model invocation implemented.
+- id: AC-31
+  description: pytest full suite passes.
+- id: AC-32
+  description: ruff check/format passes.
+- id: AC-33
+  description: V5b 0 out of scope files.
+- id: AC-34
+  description: Independent Code Review executed.
+- id: AC-35
+  description: Independent Security Review executed.
+- id: AC-36
+  description: Evidence generated before acceptance.
+- id: AC-37
+  description: resolve_project_root maps _harness-internal safely to projects/.harness-internal
+    and prevents escaping (../, absolute paths).
+- id: AC-38
+  description: next_task_id deterministic function creates zero-randomness sequence
+    IDs.
+- id: AC-39
+  description: RouteDecision enforces 0.0 <= confidence <= 1.0 and context_level in
+    {0,1,2,3}.
+- id: AC-40
+  description: Context Loader limits max file and bundle size, filters binary/invalid
+    encodings, and rejects out-of-root symlinks.

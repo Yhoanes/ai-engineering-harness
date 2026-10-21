@@ -1,0 +1,35 @@
+id: design-solution
+display_name: Design Solution Workflow
+description: Workflow for design-solution.
+purpose: Produce design, boundaries, components, interfaces, tradeoffs, and ADRs.
+  No implementation.
+allowed_specialists:
+- software-architect
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: design
+  description: Design solution architecture.
+  actor: system
+  action: design
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: plan-task
+  condition_summary: Ready to plan
+forbidden_actions:
+- implementation

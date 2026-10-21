@@ -1,0 +1,69 @@
+task_id: HARNESS-0013
+title: Backup and Distribution Export
+task_type: standard
+project: ai-engineering-harness
+created_at: '2026-08-29T09:12:19-04:00'
+status: completed
+approval_status: approved
+acceptance_status: passed
+description: "Dise\xF1ar e implementar la generaci\xF3n oficial de respaldos y distribuciones\
+  \ del AI Engineering Harness desde un development repository ya limpio.\n"
+assigned_specialists:
+- harness-maintainer
+scope:
+  planned_paths:
+    modify:
+    - engine/export/**
+    - docs/backup-and-export.md
+    - tests/test_export_builder.py
+    - tests/test_export_security.py
+    - projects/.harness-internal/tasks/HARNESS-0013.yaml
+    - projects/.harness-internal/evidence/HARNESS-0013/**
+    - pyproject.toml
+evidence:
+  tests:
+    status: null
+    coverage_target: null
+    execution_results: null
+  code_review:
+    status: null
+    reviewer: null
+    comments: null
+  security_review:
+    status: null
+    reviewer: null
+    comments: null
+approved_by: Yhoanes
+approved_at: '2026-08-29T09:15:47-04:00'
+approval_history:
+- action: approved
+  approved_by: Yhoanes
+  approved_at: '2026-08-29T09:15:47-04:00'
+  reason: Approval for HARNESS-0013 backup export engine implementation.
+implementation_baseline:
+  git_head: 81becb23bf3c998e7e7e459da4e2fbc7feb2c5c0
+  working_tree_clean: true
+  preexisting_untracked: &id001 []
+scope_amendment:
+  authorized_by: Yhoanes
+  reason: declare missing Harness runtime dependencies discovered by real Portable
+    E2E installation
+  added_paths:
+  - pyproject.toml
+  timestamp: '2026-08-29T09:54:19-04:00'
+baseline_reanchor:
+  original_baseline:
+    git_head: d7202ec7bb25df655dfb4db9f27b8823f4e6b6b3
+    working_tree_clean: true
+    preexisting_untracked: *id001
+  root_of_trust_intervention:
+    commit: 81becb23bf3c998e7e7e459da4e2fbc7feb2c5c0
+    authorized_by: Yhoanes
+    reason: allow governed maintenance of pyproject.toml
+  effective_baseline:
+    git_head: 81becb23bf3c998e7e7e459da4e2fbc7feb2c5c0
+    working_tree_clean: true
+    preexisting_untracked: *id001
+  reason: post-root-of-trust governance baseline
+accepted_by: Yhoanes
+accepted_at: '2026-08-29T10:15:33-04:00'

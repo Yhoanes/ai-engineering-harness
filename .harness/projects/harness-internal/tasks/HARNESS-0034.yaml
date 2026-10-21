@@ -1,0 +1,112 @@
+task_id: HARNESS-0034
+task_type: standard
+title: Corregir Authority Matrix ceiling path para harness-internal
+description: "Reemplazar el patr\xF3n obsoleto 'projects/.harness-internal/**' por\
+  \ '.harness/projects/harness-internal/**' resolviendo el bootstrap para HARNESS-0030."
+project: harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T16:31:02Z'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T16:41:02Z'
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: b1ef9caff362ca74c4acdffb872990b39be5deb1
+  working_tree_clean: false
+  captured_at: '2026-08-31T16:31:02Z'
+  preexisting_untracked:
+  - .harness/projects/harness-internal/evidence/HARNESS-0022/audit_trail.jsonl
+  - .harness/projects/harness-internal/proposals/HARNESS-0022.md
+  - .harness/projects/harness-internal/tasks/HARNESS-0022.yaml
+  - .harness/projects/harness-internal/tasks/HARNESS-0030.yaml
+  - .harness/projects/harness-internal/tasks/HARNESS-0034.yaml
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+      - core/authority/authority-matrix.yaml
+      - tests/test_governance_authority.py
+      - .harness/projects/harness-internal/tasks/HARNESS-0034.yaml
+      - .harness/projects/harness-internal/evidence/HARNESS-0034/validation.md
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.12.1.md
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: allow_list
+      values:
+      - pytest
+      - ruff check
+      - python
+      - git diff
+      - git status
+    network_allowed: false
+    web: []
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history:
+- timestamp: '2026-08-31T16:31:02Z'
+  actor: Yhoanes
+  action: human_gate_approval
+  status: approved
+  reason: Phase 1 approved to resolve governance bootstrap.
+- timestamp: '2026-08-31T16:38:26Z'
+  actor: Yhoanes
+  action: scope_amendment
+  status: approved
+  reason: Phase 1 corrected the Authority Matrix ceiling. The corrected working-tree
+    Matrix now authorizes HARNESS-0034 lifecycle task/evidence paths, enabling Phase
+    2 without authority override.
+- timestamp: '2026-08-31T16:41:02Z'
+  actor: Yhoanes
+  action: scope_amendment
+  status: approved
+  reason: Release artifacts authorized for HARNESS-0034 v1.12.1 publication.
+acceptance_history:
+- timestamp: '2026-08-31T16:41:02Z'
+  actor: Yhoanes
+  status: passed
+  reason: Human Acceptance authorized.
+created_at: '2026-08-31T10:50:00Z'
+updated_at: '2026-08-31T10:50:00Z'
+acceptance_criteria:
+- old lifecycle ceiling replaced
+- all other modify patterns unchanged
+- HARNESS-0030 10/10 paths allowed
+- phase-2 scope amendment required before task/evidence writes

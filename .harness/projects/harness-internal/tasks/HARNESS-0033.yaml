@@ -1,0 +1,118 @@
+task_id: HARNESS-0033
+task_type: standard
+title: Authority Matrix Network Execution & Provider Alignment
+description: Introduce network_allowed in Matrix/Task schemas and grant harness-maintainer
+  physical provider execution requirements (unrestricted read/terminal) to unblock
+  Orchestrator integration.
+project: harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T14:13:37Z'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T14:36:11Z'
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: null
+  working_tree_clean: null
+  captured_at: null
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+      - core/schemas/authority-matrix.schema.yaml
+      - core/schemas/task-contract.schema.yaml
+      - core/schemas/task-contract-light.schema.yaml
+      - core/authority/authority-matrix.yaml
+      - engine/governance/authority.py
+      - engine/validators/validate_authority.py
+      - tests/test_governance_authority.py
+      - tests/test_task_contract.py
+      - tests/test_authority.py
+      - tests/fixtures/sample_authority_matrix.yaml
+      - .harness/projects/harness-internal/tasks/HARNESS-0033.yaml
+      - .harness/projects/harness-internal/evidence/HARNESS-0033/validation.md
+      - tests/test_allowed_paths_pre.py
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.12.0.md
+    read:
+      mode: allow_list
+      values:
+      - core/schemas/authority-matrix.schema.yaml
+      - core/schemas/task-contract.schema.yaml
+      - core/schemas/task-contract-light.schema.yaml
+      - core/authority/authority-matrix.yaml
+      - engine/governance/authority.py
+      - engine/execution/models.py
+      - engine/validators/validate_authority.py
+      - engine/validators/validate_task_contract.py
+      - tests/test_governance_authority.py
+      - tests/test_task_contract.py
+      - tests/test_authority.py
+      - tests/fixtures/sample_authority_matrix.yaml
+      - .harness/projects/harness-internal/tasks/HARNESS-0033.yaml
+      - tests/test_allowed_paths_pre.py
+  allowed_actions:
+    terminal:
+      mode: allow_list
+      values:
+      - pytest
+      - ruff
+      - python
+      - git diff
+      - git status
+forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history:
+- timestamp: '2026-08-31T14:29:38Z'
+  actor: Yhoanes
+  action: scope_amendment
+  reason: The Authority Matrix schema now requires network_allowed. The inline mock
+    matrices in tests/test_allowed_paths_pre.py must be updated to include network_allowed:false
+    to pass schema validation. This does not change the behavior of validate_allowed_paths_pre.py.
+  status: approved
+- timestamp: '2026-08-31T14:36:11Z'
+  actor: Yhoanes
+  action: scope_amendment
+  status: approved
+  reason: Added VERSION, pyproject.toml, and docs/releases/v1.12.0.md to scope for
+    v1.12.0 release.
+acceptance_history: []
+created_at: '2026-08-31T10:07:42Z'
+updated_at: '2026-08-31T10:07:42Z'
+acceptance_criteria: []

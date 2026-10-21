@@ -1,0 +1,55 @@
+﻿project: harness-internal
+task_id: HARNESS-0039
+task_type: standard
+title: Executable Task Validator CLI
+description: |-
+  The engine/validators/validate_task_contract.py module currently lacks an executable entrypoint (__main__), causing it to return process exit 0 when invoked directly, even if validation is not performed or fails.
+  This task introduces a minimal executable CLI wrapper around the existing validate() function. The CLI will provide deterministic process exit semantics (0 for PASS, 1 for validation FAIL, 2 for I/O or syntax errors) without duplicating validation logic or altering the programmatic API.
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T21:04:12Z"
+approval_history:
+  - actor: Yhoanes
+    action: human_gate_approval
+    status: approved
+    timestamp: "2026-08-31T21:04:12Z"
+    reason: "Implementation of executable CLI wrapper authorized via human gate."
+  - actor: Yhoanes
+    action: scope_amendment
+    status: approved
+    timestamp: "2026-08-31T21:08:15Z"
+    reason: "HARNESS-0039 closure metadata and v1.13.4 release artifacts authorized."
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T21:08:15Z"
+acceptance_history:
+  - actor: Yhoanes
+    status: passed
+    timestamp: "2026-08-31T21:08:15Z"
+    reason: "Executable Task Validator CLI accepted after schema, semantic, input, malformed-YAML, wrong-root-type, internal-exception, executable-boundary, programmatic-API, full-suite, lint, diagnostics, and governance validation."
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+created_at: '2026-08-31T21:00:00Z'
+evidence:
+  validation_reports: []
+  artifacts: []
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+      - engine/validators/validate_task_contract.py
+      - tests/test_validate_task_contract_cli.py
+      - .harness/projects/harness-internal/tasks/HARNESS-0039.yaml
+      - .harness/projects/harness-internal/evidence/HARNESS-0039/validation.md
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.13.4.md
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: unrestricted
+    network_allowed: false

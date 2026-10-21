@@ -1,0 +1,265 @@
+# ═══════════════════════════════════════════════════════════════════
+# HARNESS-BOOTSTRAP-0001 — Bootstrap: Deterministic Validation Engine
+# ═══════════════════════════════════════════════════════════════════
+#
+# EXCEPTION: This is the sole bootstrap task. It builds the validation
+# engine that does not yet exist. After this task is closed, no further
+# bootstrap exceptions are permitted. All subsequent tasks will be
+# governed by the engine built here.
+#
+# Reference: core/policies/bootstrap-exception.yaml (to be created)
+# ═══════════════════════════════════════════════════════════════════
+
+# ─── Identification ───
+task_id: "HARNESS-BOOTSTRAP-0001"
+task_type: "standard"
+title: "Bootstrap: build deterministic validation engine"
+description: >
+  Build the core validation engine of the AI Engineering Harness:
+  schemas, state machine, validators, authority matrix, policies,
+  test suite, and project tooling (pyproject.toml, .gitignore, README).
+  This is the foundational layer that enables all subsequent tasks
+  to be governed deterministically by the harness itself.
+project: "_harness-internal"
+
+# ─── Relations ───
+supersedes: null
+superseded_by: null
+depends_on: []
+blocks: []  # All future tasks implicitly depend on this
+
+# ─── Status ───
+status: "completed"
+
+# ─── Approval (flat fields) ───
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-28T14:53:35-04:00"
+approval_source: "antigravity_chat"
+approval_session_id: null
+approval_receipt: null
+
+# ─── Acceptance (flat fields) ───
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-28T15:57:53-04:00"
+
+# ─── Deviation ───
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+
+# ─── Implementation Baseline ───
+implementation_baseline:
+  git_head: "5c8a20db43f0ca02cb47bca58189447a8b77edf5"
+  working_tree_clean: true
+  captured_at: "2026-08-28T15:03:07-04:00"
+
+# ─── Scope ───
+scope:
+  planned_paths:
+    modify:
+      # Root project files
+      - "pyproject.toml"
+      - ".gitignore"
+      - "README.md"
+      # Core schemas
+      - "core/schemas/task-contract.schema.yaml"
+      - "core/schemas/task-contract-light.schema.yaml"
+      - "core/schemas/approval.schema.yaml"
+      - "core/schemas/acceptance.schema.yaml"
+      - "core/schemas/deviation.schema.yaml"
+      - "core/schemas/specialist.schema.yaml"
+      - "core/schemas/workflow.schema.yaml"
+      - "core/schemas/state-machine.yaml"
+      # Core policies
+      - "core/policies/source-of-truth.yaml"
+      - "core/policies/skip-policy.yaml"
+      - "core/policies/bootstrap-exception.yaml"
+      # Core authority
+      - "core/authority/authority-matrix.yaml"
+      # Engine — validators
+      - "engine/__init__.py"
+      - "engine/validators/__init__.py"
+      - "engine/validators/runner.py"
+      - "engine/validators/validate_task_contract.py"
+      - "engine/validators/validate_transition.py"
+      - "engine/validators/validate_approval_gate.py"
+      - "engine/validators/validate_acceptance_gate.py"
+      - "engine/validators/validate_allowed_paths_pre.py"
+      - "engine/validators/validate_allowed_paths_post.py"
+      - "engine/validators/validate_authority.py"
+      - "engine/validators/validate_preconditions.py"
+      - "engine/validators/validate_evidence.py"
+      - "engine/validators/validate_deviation.py"
+      # Engine — state machine
+      - "engine/state_machine/__init__.py"
+      - "engine/state_machine/transitions.py"
+      # Tests
+      - "tests/__init__.py"
+      - "tests/conftest.py"
+      - "tests/test_schemas.py"
+      - "tests/test_task_contract.py"
+      - "tests/test_state_transitions.py"
+      - "tests/test_approval_gate.py"
+      - "tests/test_acceptance_gate.py"
+      - "tests/test_allowed_paths_pre.py"
+      - "tests/test_allowed_paths_post.py"
+      - "tests/test_authority.py"
+      - "tests/test_preconditions.py"
+      - "tests/test_evidence.py"
+      - "tests/fixtures/valid_task_standard.yaml"
+      - "tests/fixtures/valid_task_light.yaml"
+      - "tests/fixtures/invalid_task_missing_approval.yaml"
+      - "tests/fixtures/invalid_task_bad_transition.yaml"
+      - "tests/fixtures/valid_task_with_deviation.yaml"
+      - "tests/fixtures/invalid_task_skip_no_reason.yaml"
+      - "tests/fixtures/sample_authority_matrix.yaml"
+      # Closure preparation (authorized by Yhoanes 2026-08-28T15:41:30-04:00)
+      - "projects/.harness-internal/tasks/HARNESS-BOOTSTRAP-0001.yaml"
+      - "projects/.harness-internal/evidence/HARNESS-BOOTSTRAP-0001/EVIDENCE.md"
+    read:
+      - "**"
+  allowed_actions:
+    terminal:
+      - "pytest"
+      - "ruff check"
+      - "ruff format"
+      - "python"
+      - "pip install"
+      - "git status"
+      - "git diff"
+      - "git add"
+      - "git commit"
+  forbidden_actions: []
+
+# ─── Assignment ───
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - backend-engineer
+  - qa-engineer
+
+# ─── Evidence ───
+evidence:
+  tests:
+    status: "passed"
+    skip_reason: null
+    run_at: "2026-08-28T15:23:44-04:00"
+    report_path: "projects/.harness-internal/evidence/HARNESS-BOOTSTRAP-0001/EVIDENCE.md"
+  code_review:
+    status: "skipped"
+    skip_reason: >
+      Authorized exclusively for HARNESS-BOOTSTRAP-0001 by
+      core/policies/bootstrap-exception.yaml because the Code Reviewer
+      specialist does not exist during bootstrap.
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: "skipped"
+    skip_reason: "Authorized by core/policies/bootstrap-exception.yaml — HARNESS-BOOTSTRAP-0001 is the sole task permitted to skip security_review. Internal harness infrastructure with no user data, no network access, no secrets. From the next task onward, normal skip-policy applies without this exception."
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+
+# ─── Postcheck ───
+postcheck:
+  actual_paths_modified: []
+  postcheck_status: null
+  postcheck_at: null
+
+# ─── Audit ───
+approval_history:
+  - action: "scope_expansion"
+    authorized_by: "Yhoanes"
+    authorized_at: "2026-08-28T15:41:30-04:00"
+    reason: "Authorize closure preparation paths: task contract self-modification and evidence file."
+    paths_added:
+      - "projects/.harness-internal/tasks/HARNESS-BOOTSTRAP-0001.yaml"
+      - "projects/.harness-internal/evidence/HARNESS-BOOTSTRAP-0001/EVIDENCE.md"
+acceptance_history:
+  - action: "accepted"
+    accepted_by: "Yhoanes"
+    accepted_at: "2026-08-28T15:57:53-04:00"
+    reason: "Human acceptance for bootstrap closure"
+
+# ─── Metadata ───
+created_at: "2026-08-28T14:26:00-04:00"
+updated_at: "2026-08-28T15:41:30-04:00"
+
+# ─── Acceptance Criteria ───
+# (Informational — not parsed by engine, used for human review)
+acceptance_criteria:
+  - id: AC-01
+    description: "All YAML schemas parse and validate correctly"
+    verification: "pytest tests/test_schemas.py passes"
+
+  - id: AC-02
+    description: "Valid task contracts pass validation; invalid ones are rejected"
+    verification: "pytest tests/test_task_contract.py passes"
+
+  - id: AC-03
+    description: "All valid state transitions succeed; all invalid transitions are blocked"
+    verification: "pytest tests/test_state_transitions.py passes"
+
+  - id: AC-04
+    description: "rejected is terminal — no transition from rejected to any other state"
+    verification: "Explicit test case in test_state_transitions.py"
+
+  - id: AC-05
+    description: "Approval gate validates flat fields, provenance structure, and consistency"
+    verification: "pytest tests/test_approval_gate.py passes"
+
+  - id: AC-06
+    description: "Acceptance gate validates acceptance + deviation block when required"
+    verification: "pytest tests/test_acceptance_gate.py passes"
+
+  - id: AC-07
+    description: "Precheck validates planned_paths against authority matrix scope"
+    verification: "pytest tests/test_allowed_paths_pre.py passes"
+
+  - id: AC-08
+    description: "Postcheck validates actual modified files (from git diff) against scope"
+    verification: "pytest tests/test_allowed_paths_post.py passes"
+
+  - id: AC-09
+    description: "Authority validator enforces role permissions and forbidden actions"
+    verification: "pytest tests/test_authority.py passes"
+
+  - id: AC-10
+    description: "Precondition validator blocks workflows when conditions are not met"
+    verification: "pytest tests/test_preconditions.py passes"
+
+  - id: AC-11
+    description: "Evidence validator enforces skip_reason when status=skipped"
+    verification: "pytest tests/test_evidence.py passes"
+
+  - id: AC-12
+    description: "Transition to in_progress occurs AFTER all prechecks, BEFORE any modification"
+    verification: "Validator chain order verified in runner.py and tested"
+
+  - id: AC-13
+    description: "Implementation baseline captures git_head and verifies clean working tree"
+    verification: "Baseline logic tested in test_allowed_paths_post.py"
+
+  - id: AC-14
+    description: "ruff check passes on all engine/ and tests/ code"
+    verification: "ruff check engine/ tests/ exits with code 0"
+
+  - id: AC-15
+    description: >
+      All validators applicable to HARNESS-BOOTSTRAP-0001 are executed
+      with PASS. Validators that require components deliberately deferred
+      (e.g. validate_preconditions needing core/workflows/) are tested
+      via synthetic fixtures and documented as not_applicable for the
+      bootstrap. From the next task onward, all validators are mandatory.
+    verification: >
+      runner.py executed against this task contract; applicable validators
+      produce PASS; not_applicable validators listed with justification.
+
+  - id: AC-16
+    description: "Bootstrap exception policy is created and self-documents the exception"
+    verification: "core/policies/bootstrap-exception.yaml exists and is valid"

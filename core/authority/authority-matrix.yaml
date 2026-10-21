@@ -1,0 +1,562 @@
+# Authority Matrix — Single Source of Truth for Permissions
+# Defines the MAXIMUM permissions for each specialist role.
+# Task Contracts can only REDUCE these permissions, never exceed them.
+
+specialists:
+
+  general-advisor:
+    read: { code: true, docs: true, tasks: true, evidence: true, memory: true }
+    modify: { scope: [] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: false
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - execute_terminal
+      - invoke_specialist
+      - modify_authority
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  orchestrator:
+    read: { code: true, docs: true, tasks: true, evidence: true, memory: true }
+    modify: { scope: ["tasks/"] }
+    terminal: { allowed: false }
+    web: { allowed: false }
+    task_management:
+      propose_task: false
+      create_task: true
+      review: { read_only: true }
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - modify_authority
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "tasks/"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  product-director:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: [] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  business-analyst:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["requirements/"] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "requirements/"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  software-architect:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["architecture.md", "decisions/"] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_src
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "architecture.md"
+          - "decisions/"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  tech-lead:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["decisions/"] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_src
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "decisions/"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  backend-engineer:
+    read: { code: true, docs: true, tasks: { own: true } }
+    modify: { scope: ["{{project_paths.source}}/**"] }
+    terminal: { allowed: true, restricted_to: [build, test, lint] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy
+      - create_task
+      - modify_authority
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.source}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  frontend-engineer:
+    read: { code: true, docs: true, tasks: { own: true } }
+    modify: { scope: ["{{project_paths.source}}/**"] }
+    terminal: { allowed: true, restricted_to: [build, test, lint] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.source}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  database-engineer:
+    read: { code: true, docs: true, tasks: { own: true } }
+    modify: { scope: ["{{project_paths.source}}/**"] }
+    terminal: { allowed: true, restricted_to: [build, test, lint, migrate_dry_run] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy
+      - destructive_migration
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.source}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  integration-engineer:
+    read: { code: true, docs: true, tasks: { own: true } }
+    modify: { scope: ["{{project_paths.source}}/**"] }
+    terminal: { allowed: true, restricted_to: [build, test, lint] }
+    web: { allowed: true, restricted_to: [api_docs] }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.source}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  data-ai-engineer:
+    read: { code: true, docs: true, tasks: { own: true } }
+    modify: { scope: ["{{project_paths.source}}/**"] }
+    terminal: { allowed: true, restricted_to: [build, test, lint, train_local] }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy_model_prod
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.source}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  qa-engineer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["{{project_paths.tests}}/**"] }
+    terminal: { allowed: true, restricted_to: [test_runners] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: { evidence_only: true }
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_src
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.tests}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  code-reviewer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: [] }
+    terminal: { allowed: false }
+    web: { allowed: false }
+    task_management:
+      propose_task: false
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_any_file
+      - execute_terminal
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  security-engineer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: [] }
+    terminal: { allowed: true, restricted_to: [security_scans] }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: true
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  devops-release-engineer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: ["{{project_paths.infra}}/**"] }
+    terminal: { allowed: true, restricted_to: [build, deploy_staging, ci_cd] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy_production_without_gate
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.infra}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  documentation-engineer:
+    read: { code: true, docs: true, tasks: true }
+    modify: { scope: ["{{project_paths.docs}}/**"] }
+    terminal: { allowed: false }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: allow_list
+        values:
+          - "{{project_paths.docs}}/**"
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  debugging-specialist:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: [] }
+    terminal: { allowed: true, restricted_to: [diagnostic, logs, profiling] }
+    web: { allowed: true }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - apply_fix
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  performance-engineer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify: { scope: [] }
+    terminal: { allowed: true, restricted_to: [profiling, benchmarks] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: { evidence_only: true }
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - modify_code
+      - create_task
+    execution:
+      read_paths:
+        mode: deny_all
+      modify_paths:
+        mode: deny_all
+      terminal_commands:
+        mode: deny_all
+      network_allowed: false
+
+  # ─── Harness Maintenance Authority ───
+  # Established by direct human governance act (Yhoanes, 2026-08-28T16:32:25-04:00)
+  # to resolve the governance bootstrap gap discovered after HARNESS-BOOTSTRAP-0001.
+  #
+  # GOVERNANCE CONSTRAINTS (not bypassable by Task Contract):
+  # - harness-maintainer CANNOT authorize its own changes.
+  # - Any Task Contract that modifies core/authority/authority-matrix.yaml
+  #   requires explicit human approval AND a different specialist or
+  #   direct human governance act.
+  # - Authority Matrix + approved Task Contract are BOTH required.
+  # - This specialist can NEVER approve or accept any task.
+  harness-maintainer:
+    read: { code: true, docs: true, tasks: true, evidence: true }
+    modify:
+      scope:
+        - "core/**"
+        - "engine/**"
+        - "adapters/**"
+        - "tests/**"
+        - ".harness/projects/harness-internal/**"
+        - "templates/**"
+        - "docs/**"
+        - "install/**"
+        - "packaging/**"
+        - "README.md"
+        - "VERSION"
+        - "skills/**"
+        - ".gitignore"
+        - "pyproject.toml"
+        - "dist/**"
+        - ".pytest_cache/**"
+        - ".ruff_cache/**"
+        - "**/__pycache__/**"
+        - "__pycache__/**"
+    terminal: { allowed: true, restricted_to: [build, test, lint] }
+    web: { allowed: false }
+    task_management:
+      propose_task: true
+      create_task: false
+      review: false
+      close: false
+    forbidden:
+      - approve_task
+      - accept_task
+      - close_task
+      - deploy
+      - create_task
+    execution:
+      read_paths:
+        mode: unrestricted
+      modify_paths:
+        mode: allow_list
+        values:
+          - "core/**"
+          - "engine/**"
+          - "adapters/**"
+          - "tests/**"
+          - ".harness/projects/harness-internal/**"
+          - "templates/**"
+          - "docs/**"
+          - "install/**"
+          - "packaging/**"
+          - "README.md"
+          - "VERSION"
+          - "skills/**"
+          - ".gitignore"
+          - "pyproject.toml"
+          - "dist/**"
+          - ".pytest_cache/**"
+          - ".ruff_cache/**"
+          - "**/__pycache__/**"
+          - "__pycache__/**"
+      terminal_commands:
+        mode: unrestricted
+      network_allowed: true

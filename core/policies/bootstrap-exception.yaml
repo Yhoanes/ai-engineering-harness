@@ -1,0 +1,53 @@
+# Bootstrap Exception Policy
+# HARNESS-BOOTSTRAP-0001 is the sole task authorized to run
+# before the validation engine exists.
+
+exception:
+  id: HARNESS-BOOTSTRAP-0001
+  type: bootstrap
+  description: >
+    Exceptional task that builds the harness validation system.
+    It is the only task that runs before validators exist.
+    After this task is closed, no further bootstrap exceptions
+    are permitted. All subsequent tasks will be governed by
+    the engine built here.
+
+  authorized_skips:
+    security_review:
+      status: skipped
+      reason: >
+        HARNESS-BOOTSTRAP-0001 is the sole task permitted to skip
+        security_review outside normal skip-policy rules. Internal
+        harness infrastructure with no user data, no network access,
+        no secrets. From the next task onward, normal skip-policy
+        applies without this exception.
+    code_review:
+      status: skipped
+      reason: >
+        HARNESS-BOOTSTRAP-0001 is the sole task permitted to skip
+        code_review because the Code Reviewer specialist does not
+        exist during bootstrap. The validation engine built by this
+        task is the prerequisite for governed code reviews. From the
+        next task onward, code_review is mandatory for standard tasks
+        per skip-policy.yaml.
+
+  requirements:
+    before_implementation:
+      - "Scope written and manually verified"
+      - "Explicit human approval recorded in task file"
+      - "Manual review of plan before execution"
+    during_implementation:
+      - "Implement engine/validators/ first"
+      - "Implement tests/ in parallel"
+      - "Each validator must have passing tests"
+    after_implementation:
+      - "Run pytest on all tests"
+      - "Run ruff check on all engine/ and tests/ code"
+      - "Run all applicable validators against HARNESS-BOOTSTRAP-0001 itself"
+      - "Generate evidence for all steps"
+      - "Close with human acceptance"
+    post_close:
+      - "From the next task, all validators are mandatory"
+      - "No further bootstrap exceptions are permitted"
+
+  status: pending

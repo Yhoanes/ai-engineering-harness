@@ -1,0 +1,52 @@
+project: harness-internal
+task_id: HARNESS-0041
+task_type: standard
+title: "Final Quality Gate Cleanup"
+description: >
+  Resolve final quality findings: fix Ruff W293 and I001 formatting issues
+  in specific tracked files and secure .env files in .gitignore.
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T22:27:43Z"
+created_at: "2026-08-31T22:27:43Z"
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T22:27:43Z"
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+        - .gitignore
+        - engine/validators/scope.py
+        - engine/validators/validate_allowed_paths_pre.py
+        - tests/test_version_consistency.py
+        - .harness/projects/harness-internal/tasks/HARNESS-0041.yaml
+        - .harness/projects/harness-internal/evidence/HARNESS-0041/validation.md
+        - VERSION
+        - pyproject.toml
+        - docs/releases/v1.13.6.md
+    read:
+      mode: unrestricted
+  terminal_authority:
+    mode: unrestricted
+  network_allowed: false
+evidence:
+  implementation:
+    applied_changes:
+      modify:
+        - .gitignore
+        - engine/validators/scope.py
+        - engine/validators/validate_allowed_paths_pre.py
+        - tests/test_version_consistency.py
+        - .harness/projects/harness-internal/tasks/HARNESS-0041.yaml
+        - .harness/projects/harness-internal/evidence/HARNESS-0041/validation.md
+        - VERSION
+        - pyproject.toml
+        - docs/releases/v1.13.6.md
+      read: []
+    terminal_authority: test

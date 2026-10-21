@@ -1,0 +1,35 @@
+id: debug-task
+display_name: Debug Task Workflow
+description: Workflow for debug-task.
+purpose: 'Diagnosis first: reproduce, observe, hypothesis, root cause, fix. Modifies
+  only if authorized.'
+allowed_specialists:
+- debugging-specialist
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: diagnosis
+  description: Reproduce and root cause.
+  actor: system
+  action: diagnose
+  required: true
+  on_failure: escalate
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: test-task
+  condition_summary: Bug fixed
+forbidden_actions:
+- fix-without-diagnosis

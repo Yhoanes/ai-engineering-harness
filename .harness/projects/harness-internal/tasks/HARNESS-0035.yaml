@@ -1,0 +1,74 @@
+﻿project: harness-internal
+task_id: HARNESS-0035
+task_type: standard
+title: "[CANARY] E2E Controlled Provider Execution"
+description: >
+  Execute the provider with real E2E capabilities in a physically and
+  logically controlled environment to prove the HarnessEngine -> agy_cli
+  execution pipeline, capturing raw evidence.
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T00:00:00Z"
+approval_history:
+  - actor: Yhoanes
+    action: metadata_repair
+    status: approved
+    timestamp: "2026-08-31T20:24:26Z"
+    reason: "HISTORICAL TASK METADATA LOSS: Previous approval_history entries for Attempts 1, 2, and 3 were lost when the untracked YAML file was overwritten during Attempt 4 preparation. Reconstructed minimum valid state."
+  - actor: Yhoanes
+    action: e2e_retry_authorization
+    status: approved
+    timestamp: "2026-08-31T20:13:43Z"
+    reason: "Fourth controlled HARNESS-0035 provider-mode E2E attempt authorized after v1.13.2 enabled governed Antigravity headless permissions."
+  - actor: Yhoanes
+    action: scope_amendment
+    status: approved
+    timestamp: "2026-08-31T20:24:26Z"
+    reason: "HARNESS-0035 closure scope amendment authorized."
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T20:24:26Z"
+acceptance_history:
+  - actor: Yhoanes
+    status: passed
+    timestamp: "2026-08-31T20:24:26Z"
+    reason: "Provider-mode E2E accepted after Attempt #4 completed successfully through Harness governance, AntigravityExecutionProvider, agy headless execution, WorktreeSandbox, post-scope validation, and apply_to_main with only the authorized canary changed."
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+created_at: "2026-08-31T00:00:00Z"
+evidence:
+  validation_reports: []
+  artifacts: []
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+        - tests/fixtures/provider_e2e_canary.txt
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: unrestricted
+    network_allowed: true
+implementation_baseline:
+  git_head: "79b92143c2d1638392e23265414f2e975b63ad85"
+  captured_at: "2026-08-31T20:13:43Z"
+  working_tree_clean: false
+  preexisting_untracked:
+    - path: ".harness/projects/harness-internal/evidence/HARNESS-0022/audit_trail.jsonl"
+      sha256: "5012e80d2f785ed8062f160c423a830ea2ea10f62c3289d3599d13bea9920c74"
+    - path: ".harness/projects/harness-internal/evidence/HARNESS-0035/attempt-2.md"
+      sha256: "6a92b4fd92b479b208e00b5300c60bd4908af98297d18c0c0cdac27387307222"
+    - path: ".harness/projects/harness-internal/evidence/HARNESS-0035/attempt-3.md"
+      sha256: "f123118aa0431ab8fec4a9afffea834f2e017e77ed4abc0d922013968e1399c8"
+    - path: ".harness/projects/harness-internal/evidence/HARNESS-0035/audit_trail.jsonl"
+      sha256: "783046ad116f0b87bc488e5f6fd2f0388208eab1a43204b95602941f9efa47c0"
+    - path: ".harness/projects/harness-internal/evidence/HARNESS-0035/validation.md"
+      sha256: "bcee7dc35b2266af608c9529072585f5a20b629da861a1fce8297eb28ca79400"
+    - path: ".harness/projects/harness-internal/proposals/HARNESS-0022.md"
+      sha256: "4b63deb4233d9b35e2599338146fc8ad7d15919f082c6b509b56661351d2b6ed"
+    - path: ".harness/projects/harness-internal/tasks/HARNESS-0022.yaml"
+      sha256: "31deffa1a737a0029a3ab4a2da3365b1d796ed43fae43ed938944b6ac83ac7c2"

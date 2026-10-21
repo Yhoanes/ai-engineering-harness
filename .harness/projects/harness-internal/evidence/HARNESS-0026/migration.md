@@ -1,0 +1,13 @@
+﻿# Migration Report HARNESS-0026
+- 65 tracked files migrados.
+- 65 renames correspondientes.
+- Origen: projects/.harness-internal/
+- Destino: .harness/projects/harness-internal/
+- HARNESS-0022: 3 files manifest, missing 0, extra 0, mismatches 0.
+- HARNESS-0022 sigue untracked.
+- Scratch legacy quedó intacto (projects/.harness-internal/scratch).
+- Governed metadata legacy count: 0 (directorios vacíos limpiados).
+- Aliases: harness-internal, .harness-internal, _harness-internal resuelven exitosamente al nuevo root.
+- Split-brain fail-closed detecta falsos positivos y valida.
+- Distribution builder excluye \.harness\ y protege los archivos gobernados de exportaciones ingenuas.
+- HARNESS-0022 NO fue ejecutado.

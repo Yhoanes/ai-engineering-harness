@@ -1,0 +1,35 @@
+id: analyze-requirement
+display_name: Analyze Requirement Workflow
+description: Workflow for analyze-requirement.
+purpose: Structure requirements, actors, business rules, constraints, ambiguities,
+  and acceptance criteria.
+allowed_specialists:
+- business-analyst
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: analyze
+  description: Analyze requirements.
+  actor: system
+  action: analyze
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: design-solution
+  condition_summary: Ready for design
+forbidden_actions:
+- git commit

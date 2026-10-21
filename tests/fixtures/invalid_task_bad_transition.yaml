@@ -1,0 +1,53 @@
+task_id: "TASK-0004"
+task_type: "standard"
+title: "Rejected task trying to transition"
+description: "This task is rejected and should not transition to draft"
+project: "analista"
+
+supersedes: null
+superseded_by: "TASK-0005"
+
+status: "rejected"
+
+approval_status: "rejected"
+approved_by: null
+approved_at: null
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+
+acceptance_status: "pending"
+accepted_by: null
+accepted_at: null
+
+deviation:
+  documented: false
+  description: null
+  impact: null
+  accepted_by: null
+  accepted_at: null
+
+scope:
+  planned_paths:
+    modify:
+      - "projects/analista/src/**"
+  allowed_actions:
+    terminal: []
+  forbidden_actions: []
+
+assigned_specialists:
+  - backend-engineer
+
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+  code_review:
+    status: null
+    skip_reason: null
+  security_review:
+    status: null
+    skip_reason: null
+
+created_at: "2026-08-28T13:00:00-04:00"
+updated_at: "2026-08-28T13:00:00-04:00"

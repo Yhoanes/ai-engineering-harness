@@ -1,0 +1,62 @@
+﻿project: harness-internal
+task_id: HARNESS-0038
+task_type: standard
+title: "Runner Exit-Code Semantics"
+description: >
+  The CLI runner (engine/runner/__main__.py) currently exits with code 0 
+  regardless of the governed outcome of a task execution. This causes 
+  downstream automation (like CI/CD or shell scripts) to treat FAILED or 
+  BLOCKED tasks as successful executions.
+  
+  This task introduces a deterministic exit-code policy mapping governed 
+  ExecutionStatus (and legacy trail outcomes) to distinct non-zero exit codes 
+  (e.g., FAILED=11, BLOCKED=12) while preserving exit 1 for uncaught script 
+  exceptions.
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T20:51:11Z"
+approval_history:
+  - actor: Yhoanes
+    action: human_gate_approval
+    status: approved
+    timestamp: "2026-08-31T20:51:11Z"
+    reason: "Implementation of deterministic runner exit codes authorized via human gate."
+  - actor: Yhoanes
+    action: scope_amendment
+    status: approved
+    timestamp: "2026-08-31T20:57:17Z"
+    reason: "HARNESS-0038 closure metadata and v1.13.3 release artifacts authorized."
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T20:57:17Z"
+acceptance_history:
+  - actor: Yhoanes
+    status: passed
+    timestamp: "2026-08-31T20:57:17Z"
+    reason: "Runner exit-code semantics accepted after deterministic provider and legacy mapping, fail-closed unknown handling, executable-boundary validation, exception propagation, regression tests, full suite, lint, diagnostics, and governance validation."
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+created_at: "2026-08-31T20:46:11Z"
+evidence:
+  validation_reports: []
+  artifacts: []
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+        - engine/runner/__main__.py
+        - tests/test_runner_main.py
+        - .harness/projects/harness-internal/tasks/HARNESS-0038.yaml
+        - .harness/projects/harness-internal/evidence/HARNESS-0038/validation.md
+        - VERSION
+        - pyproject.toml
+        - docs/releases/v1.13.3.md
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: unrestricted
+    network_allowed: false

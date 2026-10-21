@@ -1,0 +1,62 @@
+project: harness-internal
+task_id: HARNESS-0040
+task_type: standard
+title: "Fresh-PC Installer Hardening"
+description: >
+  Fix Python version check in the installer and update packaging config
+  so that pip install includes all necessary modules (engine, adapters, core)
+  and does not rely on executing Python from the source tree root.
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T22:04:18Z"
+created_at: "2026-08-31T22:04:18Z"
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T22:14:36Z"
+acceptance_history:
+  - actor: Yhoanes
+    status: passed
+    timestamp: "2026-08-31T22:14:36Z"
+    reason: >
+      Fresh-PC Installer Hardening accepted after Python-version validation,
+      isolated packaging verification for engine/adapters/core, package-data
+      validation, fresh-CWD imports, installer tests, distribution tests,
+      full-suite validation, diagnostics and governance checks.
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+        - install/setup.ps1
+        - pyproject.toml
+        - tests/test_installer_launcher.py
+        - .harness/projects/harness-internal/tasks/HARNESS-0040.yaml
+        - .harness/projects/harness-internal/evidence/HARNESS-0040/validation.md
+        - VERSION
+        - docs/releases/v1.13.5.md
+    read:
+      mode: allow_list
+      values:
+        - packaging/distribution-manifest.yaml
+  terminal_authority:
+    mode: allow_list
+    values:
+      - test
+evidence:
+  implementation:
+    applied_changes:
+      modify:
+        - install/setup.ps1
+        - pyproject.toml
+        - tests/test_installer_launcher.py
+        - .harness/projects/harness-internal/tasks/HARNESS-0040.yaml
+        - .harness/projects/harness-internal/evidence/HARNESS-0040/validation.md
+        - VERSION
+        - docs/releases/v1.13.5.md
+      read:
+        - packaging/distribution-manifest.yaml
+    terminal_authority: test

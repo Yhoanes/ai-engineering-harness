@@ -1,0 +1,48 @@
+﻿project: harness-internal
+task_id: HARNESS-0037
+task_type: standard
+title: "Map terminal capabilities to agy headless permissions"
+description: "Fix headless permissions."
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: "2026-08-31T20:06:39Z"
+approval_history:
+  - actor: Yhoanes
+    action: scope_amendment
+    status: approved
+    timestamp: "2026-08-31T20:10:14Z"
+    reason: "HARNESS-0037 closure metadata and v1.13.2 release artifacts authorized."
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: "2026-08-31T20:10:14Z"
+acceptance_history:
+  - actor: Yhoanes
+    status: passed
+    timestamp: "2026-08-31T20:10:14Z"
+    reason: "Antigravity headless permission integration accepted after provider support-profile, regression, governance, security-limitation, lint, diagnostics, and full-suite validation."
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+created_at: "2026-08-31T20:04:31Z"
+evidence:
+  validation_reports: []
+  artifacts: []
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+        - adapters/antigravity/execution_provider.py
+        - tests/test_antigravity_execution_provider.py
+        - .harness/projects/harness-internal/tasks/HARNESS-0037.yaml
+        - .harness/projects/harness-internal/evidence/HARNESS-0037/validation.md
+        - VERSION
+        - pyproject.toml
+        - docs/releases/v1.13.2.md
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: unrestricted
+    network_allowed: true

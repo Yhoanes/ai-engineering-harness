@@ -1,0 +1,33 @@
+id: close-task
+display_name: Close Task Workflow
+description: Workflow for close-task.
+purpose: Human acceptance required. Validates V4, V8, V9, V2. Closes as completed
+  or completed_with_deviation.
+allowed_specialists:
+- orchestrator
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: close
+  description: Human acceptance and closure.
+  actor: human
+  action: accept
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows: []
+forbidden_actions:
+- hide-deviations

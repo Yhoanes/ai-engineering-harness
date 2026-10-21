@@ -1,0 +1,126 @@
+task_id: "HARNESS-0021"
+task_type: "standard"
+title: "Native Antigravity CLI Execution Bridge (Sandboxed)"
+description: |
+  Implement AntigravityCliExecutor utilizing isolated Staging and Git Worktrees
+  to execute the agy CLI. The Harness will strictly validate all generated diffs
+  in the sandbox before applying any changes to the official repository.
+project: "_harness-internal"
+
+# ─── Status ───
+status: "completed_with_deviation"
+
+# ─── Approval (flat fields) ───
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-30T19:44:45-04:00"
+approval_source: "human-direct"
+approval_session_id: null
+approval_receipt: null
+
+# ─── Acceptance (flat fields) ───
+acceptance_status: "passed_with_deviation"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-30T19:44:45-04:00"
+
+# 🔍 Deviation 🔍
+deviation:
+  documented: true
+  reason: |
+    1. Centralized sandbox lifecycle directly in AutonomousRunner instead of engine/orchestrator/orchestrator.py to unify audit trailing and avoid mixing Antigravity-specific execution states (sandbox_created, validated, applied) into the universal Orchestrator engine logic. This required modifying adapters/antigravity/autonomous_runner.py which was originally listed as read-only.
+    2. Out of scope modifications were necessary to support the `.harness-internal` canonical project key natively without path traversal vulnerabilities. This required modifying adapters/antigravity/adapter.py, engine/context/loader.py, tests/test_antigravity_adapter.py, and tests/test_context_loader.py to change the regex validation from `^[a-zA-Z0-9_-]+$` to `^[a-zA-Z0-9_.-]+$` while explicitly blocking `..`. These files were not in the originally approved scope.
+  authorized_by: "Yhoanes"
+  mitigation_plan: "No mitigation required for #1. For #2, strict regex and explicit `..` rejection ensures no path traversal is possible."
+  accepted_by: "Yhoanes"
+  accepted_at: "2026-08-30T19:44:45-04:00"
+
+# ─── Implementation Baseline ───
+implementation_baseline:
+  git_head: null
+  working_tree_clean: null
+  captured_at: null
+  preexisting_untracked: []
+
+# ─── Scope ───
+scope:
+  planned_paths:
+    modify:
+      - "adapters/antigravity/cli_executor.py"
+      - "engine/runner/__main__.py"
+      - "engine/runner/sandbox.py"
+      - "engine/orchestrator/orchestrator.py"
+      - "engine/orchestrator/models.py"
+      - "tests/test_cli_executor.py"
+      - "tests/test_sandbox.py"
+      - "tests/test_e2e_runner.py"
+      - "projects/.harness-internal/tasks/HARNESS-0021.yaml"
+      - "projects/.harness-internal/evidence/HARNESS-0021/**"
+      - "projects/.harness-internal/proposals/HARNESS-0021.md"
+    read:
+      - "adapters/antigravity/models.py"
+      - "adapters/antigravity/autonomous_runner.py"
+      - "engine/validators/validate_task_contract.py"
+      - "tests/conftest.py"
+  allowed_actions:
+    terminal:
+      - "pytest"
+      - "python"
+      - "ruff"
+      - "git"
+    web: []
+  forbidden_actions:
+    - "pip install"
+
+# ─── Assignment ───
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - "harness-maintainer"
+
+# ─── Evidence ───
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+
+# ─── Postcheck ───
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+
+# ─── Audit ───
+approval_history: []
+acceptance_history: []
+
+# ─── Metadata ───
+created_at: "2026-08-30T20:00:00-04:00"
+updated_at: "2026-08-30T20:00:00-04:00"
+
+# ─── Acceptance Criteria ───
+acceptance_criteria:
+  - id: "AC-01"
+    description: "plan-task genera el Task Contract en un Staging Dir. El Harness valida el yaml antes de copiarlo a projects/.harness-internal/tasks/."
+  - id: "AC-02"
+    description: "implement-task crea un Git Worktree temporal (sandbox) antes del dispatch, donde agy opera aisladamente."
+  - id: "AC-03"
+    description: "Tras 'executed' (éxito en sandbox), el Harness inspecciona el diff del sandbox comprobando que no existan mutaciones fuera del scope aprobado."
+  - id: "AC-04"
+    description: "Alcanza estado 'validated' si el diff es lícito; y 'applied' cuando el Harness transfiere físicamente y con precisión el diff al workspace oficial."
+  - id: "AC-05"
+    description: "Audit Trail soporta los estados: sandbox_created, validated, applied, segregando 'executed' de la mutación del repo principal."
+  - id: "AC-06"
+    description: "Prueba E2E opt-in demuestra físicamente que una mutación fuera de scope (creada por un agente hostil o agy dañado) es capturada en 'validated' y NUNCA llega a 'applied' ni al repo base."

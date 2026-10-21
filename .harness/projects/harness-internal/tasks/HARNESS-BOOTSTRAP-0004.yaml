@@ -1,0 +1,104 @@
+task_id: "HARNESS-BOOTSTRAP-0004"
+task_type: "standard"
+title: "Harden Antigravity CLI Execution Result Handling"
+description: |
+  Modify `adapters/antigravity/cli_executor.py` to prevent anomalous empty completions from being treated as successful agent work, and preserve critical diagnostic evidence (like bounded `stderr`, `num_turns`, and `returncode`) regardless of the host exit code.
+
+  REQUIREMENTS:
+  1. Add a helper function `_truncate_diagnostic(text: str | None, max_chars: int = 8192) -> str` to prevent unbounded error dumps. It should preserve `""` or `None` correctly, and append `... (truncated)` if it exceeds the limit. Use this limit for any raw diagnostic text preserved in exceptions or metadata.
+  2. Implement strict semantics for the execution result:
+     A. subprocess `returncode != 0` => RuntimeError (Process failure).
+     B. stdout empty => RuntimeError.
+     C. stdout is invalid JSON => RuntimeError (Parse error).
+     D. `parsed.get("status") != "SUCCESS"` => RuntimeError (Host execution).
+     E. `response` key missing => RuntimeError.
+     F. `response` is not a string => RuntimeError (Type error).
+     G. `response` string is empty or whitespace-only => RuntimeError: "agy returned SUCCESS with an empty response".
+     H. SUCCESS + non-empty string response => Normal AntigravityResponse.
+  3. Ensure every single `RuntimeError` mentioned above captures and embeds the bounded `res.stderr` in its message.
+  4. On valid execution (H), securely populate `AntigravityResponse.metadata` with: `conversation_id`, `status`, `num_turns`, `duration_seconds`, `usage`, bounded `stderr`, and `returncode`. Do not invent values if `agy` omits them.
+  5. The Empty Diff guardrail remains intact; do not modify `sandbox.py` or `models.py`. Note: This task hardens diagnostic handling; it does NOT guarantee `HARNESS-0022` will be solved, but rather that its next failure will be properly captured.
+
+  TESTING:
+  Add or update tests in `tests/test_cli_executor.py`:
+  1. SUCCESS + valid non-empty response => success.
+  2. SUCCESS + "" => failure.
+  3. SUCCESS + whitespace => failure.
+  4. SUCCESS + response non-string => failure.
+  5. stderr + valid response => success + bounded stderr in metadata.
+  6. Enormous stderr => deterministically truncated by helper.
+  7. stderr + empty response => error message contains bounded stderr.
+  8. returncode != 0 => error behavior preserved.
+  9. stdout empty => error.
+  10. Invalid JSON => parse error.
+  11. status != SUCCESS => host execution error.
+  12. metadata securely preserves status, num_turns, usage, duration, returncode.
+  13. Regression tests for existing executor mocks.
+project: ".harness-internal"
+status: "completed"
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-30T22:49:44-04:00"
+approval_source: "Human Gate"
+approval_session_id: null
+approval_receipt: null
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-30T23:11:50-04:00"
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: null
+  working_tree_clean: null
+  captured_at: null
+  preexisting_untracked: []
+scope:
+  planned_paths:
+    modify:
+      - "adapters/antigravity/cli_executor.py"
+      - "tests/test_cli_executor.py"
+    read:
+      - "adapters/antigravity/models.py"
+      - "adapters/antigravity/response_parser.py"
+      - "adapters/antigravity/autonomous_runner.py"
+  allowed_actions:
+    terminal:
+      - "pytest"
+      - "ruff"
+    web: []
+  forbidden_actions:
+    - "pip install"
+assigned_workflow: "implement-task"
+assigned_specialists:
+  - "harness-maintainer"
+evidence:
+  tests:
+    status: null
+  code_review:
+    status: null
+  security_review:
+    status: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history: []
+acceptance_history: []
+created_at: "2026-08-30T22:45:00-04:00"
+updated_at: "2026-08-30T22:45:00-04:00"
+acceptance_criteria:
+  - id: "AC-01"
+    description: "returncode 0 + SUCCESS + valid non-empty response => success normal con stderr y num_turns en metadata."
+  - id: "AC-02"
+    description: "returncode 0 + SUCCESS + response vacío o solo whitespace => explicit RuntimeError."
+  - id: "AC-03"
+    description: "stderr presente + valid non-empty response => success con stderr preservado en metadata."
+  - id: "AC-04"
+    description: "stderr presente + empty response => failure incluye stderr en el mensaje."
+  - id: "AC-05"
+    description: "returncode != 0, JSON inválido o status != SUCCESS continúan lanzando error pero ahora incluyen stderr."
+  - id: "AC-06"
+    description: "No hay regresión en el E2E executor mock existente."

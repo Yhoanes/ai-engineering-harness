@@ -1,0 +1,77 @@
+task_id: HARNESS-0026
+task_type: standard
+title: Migrate Harness Metadata to .harness Structure
+description: |
+  Perform the physical migration of all Harness metadata out of the `projects/` 
+  workspace and into the new `.harness/projects/` structure, solidifying the 
+  Harness 2.0 boundary. `projects/` will be strictly reserved for actual user software.
+
+  The metadata for internal governance will reside physically at 
+  `.harness/projects/harness-internal/`, establishing `harness-internal` as the 
+  canonical logical project ID while supporting `.harness-internal` and 
+  `_harness-internal` as legacy aliases for historical Task Contracts.
+project: "harness-internal"
+status: "completed"
+approval_status: "approved"
+approved_by: "Yhoanes"
+approved_at: "2026-08-31T00:10:00Z"
+acceptance_status: "passed"
+accepted_by: "Yhoanes"
+accepted_at: "2026-08-31T00:20:00Z"
+assigned_workflow: implement-task
+assigned_specialists:
+  - harness-maintainer
+scope:
+  planned_paths:
+    modify:
+      - core/context/metadata_paths.py
+      - engine/distribution/builder.py
+      - tests/test_export_security.py
+      - tests/test_metadata_paths.py
+      - tests/test_context_loader.py
+      - tests/test_autonomous_runner.py
+      - projects/.harness-internal/tasks/HARNESS-0026.yaml
+      # Repositorio físico: migración de tracks
+      - .harness/projects/harness-internal/tasks/
+      - .harness/projects/harness-internal/proposals/
+      - .harness/projects/harness-internal/evidence/
+      - projects/.harness-internal/tasks/
+      - projects/.harness-internal/proposals/
+      - projects/.harness-internal/evidence/
+    read:
+      - core/schemas/task-contract.schema.yaml
+      - engine/export/security.py
+  allowed_actions:
+    terminal:
+      - git ls-files
+      - git mv
+      - Move-Item
+      - New-Item
+      - Remove-Item
+      - git restore
+      - Get-FileHash
+      - Get-ChildItem
+      - git status
+      - git diff
+      - test
+    web: []
+  forbidden_actions:
+    - git clean
+    - git reset HEAD
+    - git reset --hard
+    - git add .
+    - git add -A
+    - Remove-Item -Recurse .harness
+evidence:
+  tests:
+    status: null
+acceptance_criteria:
+  - "MetadataPaths protects against split-brain using a robust '_has_governed_metadata' check, ensuring empty or residual local directories (like 'scratch/') do not trigger false positives."
+  - "Explicit tracked migration via PowerShell: git ls-files captures explicit list of tracked files to git mv individually."
+  - "Explicit untracked preservation via PowerShell: HARNESS-0022 and HARNESS-0026 are manually moved with Move-Item, remaining untracked. Hashes verified via relative paths."
+  - "MetadataPaths maps logical 'harness-internal' to new root '.harness/projects/harness-internal/' while correctly identifying the legacy physical root 'projects/.harness-internal/'."
+  - "source-of-truth.yaml is intentionally excluded from this migration to preserve machine-readability for unmigrated projects."
+  - "Self-migration sequence resolves via the MetadataPaths fallback seamlessly. Fail-closed during migration is expected."
+  - "engine/distribution/builder.py explicitly excludes .harness/."
+  - "Rollback strategy relies on path-scoped git restore --staged and --worktree targeting only explicitly modified Python files and migration paths. 'scratch' remains untouched."
+  - "All unit and E2E tests pass."

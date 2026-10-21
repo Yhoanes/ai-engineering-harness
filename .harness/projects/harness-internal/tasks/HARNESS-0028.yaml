@@ -1,0 +1,56 @@
+task_id: HARNESS-0028
+title: Antigravity Execution Provider (Legacy Wrapper)
+project: harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T01:14:26-04:00'
+acceptance_status: passed
+task_type: standard
+assigned_workflow: implement-task
+assigned_specialists:
+- Harness Evolution Advisor
+summary: Antigravity Execution Provider (Legacy Wrapper) integration.
+priority: high
+description: 'Implement the first concrete ExecutionProvider by wrapping the legacy
+  Antigravity runtime.
+
+  This provider acts as a strict compatibility layer with a fail-closed authority
+  profile.
+
+
+  ExecutionRequest is the absolute source of authority.
+
+
+  Support Profile (Pre-execution rejection if violated):
+
+  - purpose == IMPLEMENT
+
+  - terminal_allowed == True
+
+  - network_allowed == True
+
+  - forbidden_actions == empty (Any populated forbidden action triggers rejection
+  as the legacy runtime cannot authoritatively enforce it).
+
+  '
+scope:
+  planned_paths:
+    modify:
+    - adapters/antigravity/execution_provider.py
+    - tests/test_antigravity_execution_provider.py
+    - adapters/antigravity/models.py
+    - adapters/antigravity/adapter.py
+    - adapters/antigravity/autonomous_runner.py
+    - tests/test_antigravity_adapter.py
+    - tests/test_autonomous_runner.py
+    read:
+    - engine/execution/models.py
+    - engine/execution/provider.py
+  allowed_actions:
+    terminal: []
+  forbidden_actions:
+  - Modify engine/orchestrator routing
+  - Silently infer empty collection semantics without a formal contract update
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T11:17:08.097682+00:00'

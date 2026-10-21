@@ -1,0 +1,33 @@
+﻿# HARNESS-0035 E2E Attempt 2
+
+- Attempt 1 = FAIL;
+- blocker fixed by HARNESS-0036 / v1.13.1;
+- refreshed baseline;
+- UTC start/end: 2026-08-31T19:28:49Z;
+- pre-canary content/hash: provider-e2e-baseline / 3A70B82D30BC6DA80B97C1F0FE99C8A46DD38ECA6A1483F339BB7897EF2A32D1;
+- exact CLI command: .venv\Scripts\python.exe -m engine.runner --project harness-internal --task-id HARNESS-0035 --intent "Cambiar exactamente el contenido de tests/fixtures/provider_e2e_canary.txt de 'provider-e2e-baseline' a 'provider-e2e-completed' sin modificar ningún otro archivo." --execution-mode provider
+- CLI execution count = 1;
+- CLI exit code: 1;
+- provider_id: NOT REACHED;
+- execution_id: NOT REACHED;
+- ExecutionStatus: NOT REACHED;
+- duration: 0.20s;
+- reported_changed_files: [];
+- stdout/stderr: Failed with ValueError: Task Contract validation failed: ["implementation_baseline.preexisting_untracked.0: ... is not of type 'object'", ...]. The script failed during engine._load_task_contract because the string array in preexisting_untracked did not match the JSON schema requiring an array of objects {path, sha256}.
+- diagnostics: Error in schema validation prior to Provider initialization.
+- workflow/specialist evidence: NOT PROVEN BY RUNTIME LOG;
+- Router evidence: NOT PROVEN BY RUNTIME LOG;
+- WorktreeSandbox evidence: NOT PROVEN BY RUNTIME LOG;
+- scope validation: NOT PROVEN BY RUNTIME LOG;
+- apply_to_main: NOT PROVEN BY RUNTIME LOG;
+- post-canary content/hash: provider-e2e-baseline / 3A70B82D30BC6DA80B97C1F0FE99C8A46DD38ECA6A1483F339BB7897EF2A32D1;
+- complete diff: [Empty];
+- all tracked changed paths: NONE;
+- unexpected changes: NONE;
+- no fallback: Verified (hard exited with ValueError);
+- network semantics: Task workload network requirement: NO. Provider/runtime transport network: NOT PROVEN. network_allowed: TRUE.
+- native isolation false;
+- physical read isolation NOT PROVEN;
+- network sandbox NOT PROVEN;
+- ATTEMPT 2 FAIL;
+- exact reason: engine.run_task failed immediately during _load_task_contract due to strict JSON schema validation. The preexisting_untracked field contained an array of strings instead of the required array of objects {path, sha256}. The provider was not reached.

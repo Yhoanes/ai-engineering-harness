@@ -1,0 +1,114 @@
+task_id: HARNESS-0030
+task_type: standard
+title: Conectar Orchestrator con ExecutionProvider
+description: "Introducir Orchestrator Engine para abstraer la ejecuci\xF3n y evitar\
+  \ double-routing."
+project: harness-internal
+status: completed
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-31T16:49:23Z'
+approval_source: null
+approval_session_id: null
+approval_receipt: null
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-31T18:43:20Z'
+deviation:
+  documented: false
+  reason: null
+  authorized_by: null
+  mitigation_plan: null
+implementation_baseline:
+  git_head: b3ef9302e81c172e212136f75942ba4bec453c44
+  working_tree_clean: false
+  captured_at: '2026-08-31T16:49:23Z'
+  preexisting_untracked:
+  - .harness/projects/harness-internal/evidence/HARNESS-0022/audit_trail.jsonl
+  - .harness/projects/harness-internal/proposals/HARNESS-0022.md
+  - .harness/projects/harness-internal/tasks/HARNESS-0022.yaml
+  - .harness/projects/harness-internal/tasks/HARNESS-0030.yaml
+scope:
+  planned_paths:
+    modify:
+      mode: allow_list
+      values:
+      - engine/runner/__main__.py
+      - engine/orchestrator/engine.py
+      - engine/orchestrator/__init__.py
+      - adapters/antigravity/adapter.py
+      - adapters/antigravity/execution_provider.py
+      - tests/test_orchestrator_engine.py
+      - tests/test_antigravity_execution_provider.py
+      - tests/test_antigravity_adapter.py
+      - .harness/projects/harness-internal/tasks/HARNESS-0030.yaml
+      - .harness/projects/harness-internal/evidence/HARNESS-0030/validation.md
+      - VERSION
+      - pyproject.toml
+      - docs/releases/v1.13.0.md
+    read:
+      mode: unrestricted
+  allowed_actions:
+    terminal:
+      mode: unrestricted
+    network_allowed: true
+    web: []
+  forbidden_actions: []
+assigned_workflow: implement-task
+assigned_specialists:
+- harness-maintainer
+evidence:
+  tests:
+    status: null
+    skip_reason: null
+    run_at: null
+    report_path: null
+  code_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+  security_review:
+    status: null
+    skip_reason: null
+    reviewed_by: null
+    reviewed_at: null
+    report_path: null
+postcheck:
+  status: null
+  run_at: null
+  findings: []
+approval_history:
+- timestamp: '2026-08-31T16:49:23Z'
+  actor: Yhoanes
+  action: human_gate_approval
+  status: approved
+  reason: HARNESS-0030 authorized for implementation phase.
+- actor: Yhoanes
+  action: scope_amendment
+  status: approved
+  timestamp: '2026-08-31T18:43:20Z'
+  reason: Release artifacts authorized for HARNESS-0030 v1.13.0 publication.
+acceptance_history:
+- actor: Yhoanes
+  status: passed
+  timestamp: '2026-08-31T18:43:20Z'
+  reason: HARNESS-0030 provider-neutral governed execution integration accepted after
+    provider routing, governance, context, CLI, compatibility, and full regression
+    validation.
+created_at: '2026-08-31T07:38:00Z'
+updated_at: '2026-08-31T07:38:00Z'
+acceptance_criteria:
+- Task <= Matrix passes for read/modify/terminal/network
+- provider accepts constructed ExecutionRequest
+- implement-task maps to IMPLEMENT
+- governed specialist is not re-routed
+- governed workflow is not re-inferred
+- request context remains authoritative
+- unsupported provider request rejected pre-execution
+- no automatic provider->legacy fallback
+- legacy mode remains default
+- provider mode returns ExecutionResult
+- full tests pass
+- no out-of-scope modifications

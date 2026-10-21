@@ -1,0 +1,34 @@
+id: document-task
+display_name: Document Task Workflow
+description: Workflow for document-task.
+purpose: Authorized documentation updates only. No functional changes.
+allowed_specialists:
+- documentation-engineer
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: document
+  description: Write documentation.
+  actor: system
+  action: document
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: close-task
+  condition_summary: Documentation done
+forbidden_actions:
+- functional-changes

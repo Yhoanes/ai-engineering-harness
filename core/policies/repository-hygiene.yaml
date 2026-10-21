@@ -1,0 +1,65 @@
+id: repository-hygiene
+purpose: mantener repositorios limpios antes de packaging, major release y major closure.
+
+keep:
+  - source code real
+  - governance
+  - active project context
+  - legitimate tests
+  - regression tests
+  - approved documentation
+  - required evidence/history in development repositories
+
+remove_if_present:
+  - __pycache__/
+  - "*.pyc"
+  - "*.pyo"
+  - .pytest_cache/
+  - .ruff_cache/
+  - .coverage
+  - htmlcov/
+  - dist/
+  - build/
+  - "*.egg-info/"
+  - "*.tmp"
+  - "*.bak"
+  - "*.orig"
+  - "*.rej"
+
+review_before_removal:
+  - historical evidence
+  - task history
+  - fixtures
+  - migration/bootstrap artifacts
+  - generated docs
+  - debugging scripts that may deserve promotion to stable tooling
+
+forbidden_cleanup_actions:
+  - deleting source because it appears unused without verification
+  - deleting regression tests without justification
+  - deleting historical evidence from development repository
+  - rewriting Git history
+  - removing files outside approved Task Contract scope
+  - removing secrets by merely deleting without incident handling
+
+checks:
+  - no machine-specific paths
+  - no real secrets
+  - no temporary debug prints/breakpoints
+  - no stale build artifacts
+  - no untracked one-shot scripts intended for distribution
+
+distribution_profiles:
+  development:
+    - keeps internal task/evidence history
+  clean_runtime:
+    - excludes construction history
+    - excludes caches
+    - excludes build artifacts
+    - excludes machine-specific files
+    - excludes secrets
+    - starts with clean project workspace
+
+integration_strategy:
+  - future packaging/release processes should consume this policy
+  - no new workflow required at this time

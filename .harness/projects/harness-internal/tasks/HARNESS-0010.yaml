@@ -1,0 +1,79 @@
+task_id: HARNESS-0010
+status: completed
+task_type: standard
+title: Harness Evolution Advisor and Extension Architecture
+description: "Dise\xF1ar e implementar la capacidad formal del AI Engineering Harness\
+  \ para  evolucionarse a s\xED mismo de forma gobernada, auditable y extensible,\
+  \ mediante  la creaci\xF3n del Harness Evolution Advisor y una arquitectura de extensiones.\n"
+project: _harness-internal
+created_at: '2026-08-29T01:15:55-04:00'
+approval_status: approved
+approved_by: Yhoanes
+approved_at: '2026-08-29T01:25:21-04:00'
+acceptance_status: passed
+accepted_by: Yhoanes
+accepted_at: '2026-08-29T07:57:06-04:00'
+approval_history:
+- action: approved
+  approved_by: Yhoanes
+  approved_at: '2026-08-29T01:25:21-04:00'
+  reason: Explicit approval of HARNESS-0010 architecture
+acceptance_history:
+- action: passed
+  accepted_by: Yhoanes
+  accepted_at: '2026-08-29T07:57:06-04:00'
+  reason: La certificacion de arquitectura de evolucion final queda aceptada.
+deviation:
+  documented: false
+  description: null
+  justification: null
+  impact_analysis: null
+  mitigation_plan: null
+  approved_by: null
+implementation_baseline:
+  git_head: 129b0c3d5d7f05060e68ffea9f818d9670babab5
+  working_tree_clean: true
+  captured_at: '2026-08-29T05:26:29.517400+00:00'
+  preexisting_untracked: []
+assigned_specialists:
+- harness-maintainer
+scope:
+  planned_paths:
+    modify:
+    - core/specialists/harness-evolution-advisor/**
+    - engine/evolution/**
+    - skills/**
+    - docs/evolution.md
+    - docs/extensions.md
+    - docs/versioning.md
+    - tests/test_evolution_service.py
+    - tests/test_extension_registry.py
+    - tests/test_skill_structure.py
+    - tests/test_specialists.py
+    - engine/advisor/**
+    - tests/test_advisor_service.py
+    - packaging/distribution-manifest.yaml
+    - projects/.harness-internal/tasks/HARNESS-0010.yaml
+    - projects/.harness-internal/evidence/HARNESS-0010/**
+scope_amendment:
+  authorized_by: Yhoanes
+  reason: integrate Harness Evolution Advisor into the primary Advisor intent-routing
+    experience
+  added_paths:
+  - tests/test_specialists.py
+  - engine/advisor/**
+  - tests/test_advisor_service.py
+  amended_at: '2026-08-29T02:00:39-04:00'
+evidence:
+  tests:
+    status: null
+    coverage_target: null
+    execution_results: null
+  code_review:
+    status: null
+    reviewer: null
+    comments: null
+  security_review:
+    status: null
+    reviewer: null
+    comments: null

@@ -1,0 +1,203 @@
+# JSON Schema for Light Task Contract
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Light Task Contract"
+type: object
+required:
+  - task_id
+  - task_type
+  - title
+  - project
+  - status
+  - approval_status
+  - acceptance_status
+  - scope
+  - assigned_specialists
+  - evidence
+  - created_at
+
+properties:
+  task_id:
+    type: string
+    pattern: "^TASK-\\d{4}$"
+  task_type:
+    type: string
+    enum: [light]
+  title:
+    type: string
+    minLength: 1
+  description:
+    type: string
+  project:
+    type: string
+    minLength: 1
+
+  supersedes:
+    type: [string, "null"]
+  superseded_by:
+    type: [string, "null"]
+
+  status:
+    type: string
+    enum:
+      - draft
+      - awaiting_approval
+      - approved
+      - in_progress
+      - blocked
+      - completed
+      - completed_with_deviation
+      - rejected
+
+  approval_status:
+    type: string
+    enum: [pending, approved, rejected]
+  approved_by:
+    type: [string, "null"]
+  approved_at:
+    type: [string, "null"]
+  approval_source:
+    type: [string, "null"]
+  approval_session_id:
+    type: [string, "null"]
+  approval_receipt:
+    type: [string, "null"]
+
+  acceptance_status:
+    type: string
+    enum: [pending, passed, passed_with_deviation, failed]
+  accepted_by:
+    type: [string, "null"]
+  accepted_at:
+    type: [string, "null"]
+
+  scope:
+    type: object
+    required: [planned_paths]
+    properties:
+      planned_paths:
+        type: object
+        required: [modify]
+        properties:
+          modify:
+            oneOf:
+              - type: array
+                items: { type: string, minLength: 1 }
+                minItems: 1
+              - type: object
+                additionalProperties: false
+                required: [mode]
+                properties:
+                  mode: { const: deny_all }
+              - type: object
+                additionalProperties: false
+                required: [mode]
+                properties:
+                  mode: { const: unrestricted }
+              - type: object
+                additionalProperties: false
+                required: [mode, values]
+                properties:
+                  mode: { const: allow_list }
+                  values:
+                    type: array
+                    items: { type: string, minLength: 1 }
+                    minItems: 1
+          read:
+            oneOf:
+              - type: array
+                items: { type: string, minLength: 1 }
+              - type: object
+                additionalProperties: false
+                required: [mode]
+                properties:
+                  mode: { const: deny_all }
+              - type: object
+                additionalProperties: false
+                required: [mode]
+                properties:
+                  mode: { const: unrestricted }
+              - type: object
+                additionalProperties: false
+                required: [mode, values]
+                properties:
+                  mode: { const: allow_list }
+                  values:
+                    type: array
+                    items: { type: string, minLength: 1 }
+                    minItems: 1
+      allowed_actions:
+        type: object
+        properties:
+          terminal:
+              oneOf:
+                - type: array
+                  items: { type: string, minLength: 1 }
+                - type: object
+                  additionalProperties: false
+                  required: [mode]
+                  properties:
+                    mode: { const: deny_all }
+                - type: object
+                  additionalProperties: false
+                  required: [mode]
+                  properties:
+                    mode: { const: unrestricted }
+                - type: object
+                  additionalProperties: false
+                  required: [mode, values]
+                  properties:
+                    mode: { const: allow_list }
+                    values:
+                      type: array
+                      items: { type: string, minLength: 1 }
+                      minItems: 1
+          network_allowed:
+            type: boolean
+
+  assigned_workflow:
+    type: [string, "null"]
+  assigned_specialists:
+    type: array
+    items: { type: string }
+    minItems: 1
+
+  evidence:
+    type: object
+    properties:
+      tests:
+        type: object
+        properties:
+          status: { type: [string, "null"], enum: [passed, failed, skipped, null] }
+          skip_reason: { type: [string, "null"] }
+          run_at: { type: [string, "null"] }
+          report_path: { type: [string, "null"] }
+      code_review:
+        type: object
+        properties:
+          status: { type: [string, "null"], enum: [approved, changes_requested, skipped, null] }
+          skip_reason: { type: [string, "null"] }
+          reviewed_by: { type: [string, "null"] }
+          reviewed_at: { type: [string, "null"] }
+          report_path: { type: [string, "null"] }
+      security_review:
+        type: object
+        properties:
+          status: { type: [string, "null"], enum: [passed, flagged, skipped, null] }
+          skip_reason: { type: [string, "null"] }
+          reviewed_by: { type: [string, "null"] }
+          reviewed_at: { type: [string, "null"] }
+          report_path: { type: [string, "null"] }
+
+  postcheck:
+    type: object
+    properties:
+      actual_paths_modified:
+        type: array
+        items: { type: string }
+      postcheck_status: { type: [string, "null"], enum: [passed, failed, null] }
+      postcheck_at: { type: [string, "null"] }
+
+  created_at:
+    type: string
+  updated_at:
+    type: string

@@ -1,0 +1,35 @@
+id: approve-task
+display_name: Approve Task Workflow
+description: Workflow for approve-task.
+purpose: Require human approval. Validates gates, records provenance, allows awaiting_approval
+  -> approved.
+allowed_specialists:
+- orchestrator
+entry_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+steps:
+- id: approve
+  description: Human approval gate.
+  actor: human
+  action: approve
+  required: true
+  on_failure: abort
+required_validators:
+- V1
+- V5a
+evidence_requirements:
+- id: ev-1
+  description: Proof of completion
+  type: status
+  required: true
+exit_conditions:
+- field: status
+  operator: exists
+  value: 'true'
+next_workflows:
+- id: implement-task
+  condition_summary: Approved
+forbidden_actions:
+- auto-approve

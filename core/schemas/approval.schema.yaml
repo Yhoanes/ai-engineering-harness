@@ -1,0 +1,28 @@
+# JSON Schema for Approval Validation
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Approval Gate Schema"
+description: >
+  Defines the structural requirements for a valid approval.
+  Does NOT guarantee human authenticity — only structural validity.
+type: object
+required:
+  - approval_status
+  - approved_by
+  - approved_at
+
+properties:
+  approval_status:
+    type: string
+    enum: [approved]
+  approved_by:
+    type: string
+    minLength: 1
+  approved_at:
+    type: string
+    description: "ISO 8601 datetime"
+  approval_source:
+    type: [string, "null"]
+  approval_session_id:
+    type: [string, "null"]
+  approval_receipt:
+    type: [string, "null"]
