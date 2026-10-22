@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![Version](https://img.shields.io/badge/Version-1.13.7-blue)
-![Tests](https://img.shields.io/badge/Tests-684_Passed-success)
+![Tests](https://img.shields.io/badge/Tests-684_passed%2C_4_skipped-success)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 **AI Engineering Harness** is a deterministic agent governance, orchestration, and validation framework written in Python (`>=3.11`). It enforces structured software engineering lifecycles (`discovery -> architecture -> implementation -> verification`), strict Role-Based Access Control (RBAC) via an **Authority Matrix**, and mandatory human approval gates via JSON-Schema **Task Contracts**.
@@ -77,7 +77,7 @@ Actions that modify your workspace are gated by Task Contracts (inside your proj
 This package is a clean, portable distribution. When you upgrade, your `projects/` folder will remain intact.
 
 ## Running Tests
-The full test suite requires Python 3.11+ and Git on `PATH`. It does not require a
+The full test suite (`684 passed, 4 skipped` on Windows) requires Python 3.11+ and Git on `PATH`. It does not require a
 global Git `user.name` or `user.email`; tests that create temporary repositories use
 an isolated test identity.
 
